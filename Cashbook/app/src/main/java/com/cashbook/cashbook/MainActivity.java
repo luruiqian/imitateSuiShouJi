@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.cashbook.cashbook.account.AccountFragment;
 import com.cashbook.cashbook.finance.FinanceFragment;
@@ -26,12 +28,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private Fragment mCurrentFragment;
     private int mTabPosition;
     private int[] mBottomTabResource;
+    private long firstExitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        MyApplication.getInstance().addActivity(MainActivity.this);
         initView();
         initResource();
         initTab();
@@ -121,9 +124,26 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             }
             mCurrentFragment = currentFragment;
             mTransaction.show(mCurrentFragment);
+            mTransaction.addToBackStack(mTabPosition + "");
             mTransaction.commitAllowingStateLoss();
             mTransaction = null;
             mFragmentManager.executePendingTransactions();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            long secondExitTime = System.currentTimeMillis();
+            if (secondExitTime - firstExitTime > 200000) {
+                Toast.makeText(MainActivity.this, R.string.exit_toast, Toast.LENGTH_SHORT).show();
+                firstExitTime = secondExitTime;
+            } else {
+                MyApplication.getInstance().exitApp();
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -132,7 +152,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
      */
     public void selectTab(int position) {
         TabLayout.Tab tab = mBottomTabLayout.getTabAt(position);
-        tab.select();
+        if (tab != null) {
+            tab.select();
+        }
     }
 
     private int getContentFragmentId() {
