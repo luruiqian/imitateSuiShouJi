@@ -134,14 +134,25 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            long secondExitTime = System.currentTimeMillis();
-            if (secondExitTime - firstExitTime > 200000) {
-                Toast.makeText(MainActivity.this, R.string.exit_toast, Toast.LENGTH_SHORT).show();
-                firstExitTime = secondExitTime;
+            if (mBottomTabLayout.getSelectedTabPosition() == 1) {
+                long secondExitTime = System.currentTimeMillis();
+                if (secondExitTime - firstExitTime > 2000) {
+                    Toast.makeText(MainActivity.this, R.string.exit_toast, Toast.LENGTH_SHORT).show();
+                    firstExitTime = secondExitTime;
+                } else {
+                    MyApplication.getInstance().exitApp();
+                }
+                return true;
             } else {
-                MyApplication.getInstance().exitApp();
+                selectTab(1);
+                if (mTransaction == null) {
+                    mTransaction = mFragmentManager.beginTransaction();
+                }
+                mTransaction.replace(getContentFragmentId(), createCurrentFragment(1));
+                mTransaction.commitAllowingStateLoss();
+                mTransaction = null;
+                return true;
             }
-            return true;
         } else {
             return false;
         }
