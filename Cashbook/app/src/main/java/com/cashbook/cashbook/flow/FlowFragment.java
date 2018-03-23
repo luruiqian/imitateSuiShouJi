@@ -15,6 +15,9 @@ public class FlowFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * onCreateView是创建的时候调用，onViewCreated是在onCreateView后被触发的事件
+     **/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

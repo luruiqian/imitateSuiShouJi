@@ -21,6 +21,8 @@ import com.cashbook.cashbook.my.MyFragment;
 
 import java.util.List;
 
+import static android.support.design.widget.TabLayout.MODE_FIXED;
+
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     private FragmentTransaction mTransaction;
     private FragmentManager mFragmentManager;
@@ -62,7 +64,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             tab.setCustomView(getTabView(i));
             mBottomTabLayout.addTab(tab);
         }
-        mBottomTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        /**
+         * TabMode:布局中Tab的行为模式（behavior mode），有两种值：MODE_FIXED 和 MODE_SCROLLABLE。
+         * MODE_FIXED:固定tabs，并同时显示所有的tabs。
+         * MODE_SCROLLABLE：可滚动tabs，显示一部分tabs，在这个模式下能包含长标签和大量的tabs，最好用于用户不需要直接比较tabs。
+         */
+        mBottomTabLayout.setTabMode(MODE_FIXED);
         selectTab(1);
     }
 
