@@ -1,12 +1,236 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.cashbook.cashbook.flow.FlowFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="流动" />
+        android:layout_height="180dp"
+        android:background="#FEE379"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/flow_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#E7481D"
+                android:textSize="18sp"
+                tools:text="3" />
+
+            <TextView
+                android:id="@+id/flow_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/flow_month"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@id/flow_month"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                tools:text="2018" />
+
+            <ImageView
+                android:id="@+id/flow_open_eye_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/flow_year"
+                android:src="@drawable/flow_eye_open" />
+
+            <ImageView
+                android:id="@+id/flow_info_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/flow_info_icon" />
+
+            <ImageView
+                android:id="@+id/flow_message_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
+                android:layout_toLeftOf="@id/flow_info_iv"
+                android:src="@drawable/flow_message_icon" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/flow_money_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="本月收入"
+                            android:textColor="#333333"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:id="@+id/flow_income_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/flow_more" />
+
+                        <TextView
+                            android:id="@+id/flow_this_month_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@id/flow_income_more"
+                            android:text="0.00元" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="本月支出"
+                            android:textColor="#333333"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:id="@+id/flow_output_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/flow_more" />
+
+                        <TextView
+                            android:id="@+id/flow_this_month_output"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@id/flow_output_more"
+                            android:text="0.00元" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="预算"
+                            android:textColor="#333333"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:id="@+id/flow_budget_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/flow_more" />
+
+                        <TextView
+                            android:id="@+id/flow_budget_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@id/flow_budget_more"
+                            android:text="0.00元" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="3"
+                android:background="#F9B625" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/flow_record_bg">
+
+        <RelativeLayout
+            android:id="@+id/flow_record_rl"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/flow_record"
+                android:textColor="#e6e6e6"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#eeeee6" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/flow_record_icon" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/flow_record_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/listview_divider"
+        android:dividerHeight="1px" />
+</LinearLayout>
