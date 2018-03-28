@@ -45,29 +45,38 @@ public class FlowRecordAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        if (holder == null) {
+        if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_account_item, null);
             holder = new ViewHolder();
-            bindView(holder, position);
+            bindView(holder, convertView);
             convertView.setTag(holder);
         } else {
-            convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
+        bindData(holder, position);
         return convertView;
     }
 
-    private void bindView(ViewHolder holder, int position) {
+    private void bindData(ViewHolder holder, int position) {
         holder.flowAccountTimeTv.setText(getItem(position).time);
         holder.flowAccountSubTv.setText(getItem(position).recordSubscribe);
         holder.flowIncomeTv.setText(getItem(position).income);
         holder.flowPayTv.setText(getItem(position).expend);
     }
 
+    private void bindView(ViewHolder holder, View convertView) {
+        holder.flowAccountImage = (ImageView) convertView.findViewById(R.id.adapter_account_iv);
+        holder.flowAccountTimeTv = (TextView) convertView.findViewById(R.id.adapter_account_time_tv);
+        holder.flowAccountSubTv = (TextView) convertView.findViewById(R.id.adapter_account_sub_tv);
+        holder.flowIncomeTv = (TextView) convertView.findViewById(R.id.adapter_flow_income_tv);
+        holder.flowPayTv = (TextView) convertView.findViewById(R.id.adapter_flow_pay_tv);
+    }
+
     public class ViewHolder {
+        public ImageView flowAccountImage;
         public TextView flowAccountTimeTv;
         public TextView flowAccountSubTv;
         public TextView flowIncomeTv;
         public TextView flowPayTv;
-        public ImageView flowAccountImage;
     }
 }
