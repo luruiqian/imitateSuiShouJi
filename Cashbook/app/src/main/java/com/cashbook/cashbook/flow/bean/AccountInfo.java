@@ -10,4 +10,5 @@ public class AccountInfo {
     public String income;
     public String expend;
     public String accountImg;
+    public boolean isShowMoney;
 }

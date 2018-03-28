@@ -21,6 +21,7 @@ import java.util.List;
 public class FlowRecordAdapter extends BaseAdapter {
     private Context mContext;
     private List<AccountInfo> mList = new ArrayList();
+    private ViewHolder holder = null;
 
     public FlowRecordAdapter(Context context, List<AccountInfo> list) {
         this.mContext = context;
@@ -44,7 +45,7 @@ public class FlowRecordAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_account_item, null);
             holder = new ViewHolder();
@@ -58,10 +59,12 @@ public class FlowRecordAdapter extends BaseAdapter {
     }
 
     private void bindData(ViewHolder holder, int position) {
+        holder.flowPayTv.setText(getItem(position).expend);
+        holder.flowIncomeTv.setText(getItem(position).income);
         holder.flowAccountTimeTv.setText(getItem(position).time);
         holder.flowAccountSubTv.setText(getItem(position).recordSubscribe);
-        holder.flowIncomeTv.setText(getItem(position).income);
-        holder.flowPayTv.setText(getItem(position).expend);
+        holder.flowIncomeTv.setVisibility(getItem(position).isShowMoney ? View.VISIBLE : View.GONE);
+        holder.flowPayTv.setVisibility(getItem(position).isShowMoney ? View.VISIBLE : View.GONE);
     }
 
     private void bindView(ViewHolder holder, View convertView) {

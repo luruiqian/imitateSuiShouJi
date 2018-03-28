@@ -231,7 +231,14 @@
         android:id="@+id/flow_record_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:listSelector="@drawable/list_yellow_bg_selector"
         android:divider="@drawable/listview_divider"
-        android:dividerHeight="1px" />
+        android:dividerHeight="1px"
+        android:listSelector="@drawable/list_yellow_bg_selector" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#e6e6e6"
+        android:paddingLeft="45dp" />
+
 </LinearLayout>

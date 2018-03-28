@@ -6,36 +6,10 @@
 
     <ImageView
         android:id="@+id/adapter_account_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_centerVertical="true"
         android:src="@drawable/adapter_flow_account_icon_default" />
-
-    <LinearLayout
-        android:id="@+id/adapter_flow_record_time_ll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/adapter_account_iv"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/adapter_account_time_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="本周"
-            android:textColor="#333333"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/adapter_account_sub_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="本周"
-            android:textColor="#999999"
-            android:textSize="12sp" />
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/adapter_flow_more"
@@ -69,6 +43,33 @@
             android:layout_height="wrap_content"
             android:text="10.00"
             android:textColor="#00ff00"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/adapter_flow_record_time_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/adapter_account_iv"
+        android:layout_toRightOf="@+id/adapter_account_iv"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/adapter_account_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本周"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/adapter_account_sub_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本周"
+            android:textColor="#999999"
             android:textSize="12sp" />
     </LinearLayout>
 </RelativeLayout>
