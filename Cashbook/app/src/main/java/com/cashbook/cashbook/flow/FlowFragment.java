@@ -1,5 +1,7 @@
 package com.cashbook.cashbook.flow;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.data.CashbookSQLiteOpenHelper;
 import com.cashbook.cashbook.flow.adapter.FlowRecordAdapter;
 import com.cashbook.cashbook.flow.bean.AccountInfo;
 
@@ -19,6 +22,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public class FlowFragment extends Fragment implements View.OnClickListener {
+    //数据库
+    private CashbookSQLiteOpenHelper cashbookSQLiteOpenHelper;
+    private SQLiteDatabase dataBase;
+
     private FlowRecordAdapter flowRecordAdapter;
     private List<AccountInfo> accountList;
     private ListView mRecordListView;
@@ -65,6 +72,15 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
+        // TODO: 2018/3/28  创建数据库
+        cashbookSQLiteOpenHelper = new CashbookSQLiteOpenHelper(getActivity());
+        dataBase = cashbookSQLiteOpenHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("time", System.currentTimeMillis());
+        values.put("expend", "");
+        values.put("income", "");
+
+        //假数据
         accountList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             AccountInfo accountInfo = new AccountInfo();
@@ -102,7 +118,7 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
     }
 
     private void hideWords(boolean isOpenEye) {
-        // TODO: 2018/3/28  设置具体数据（50,60,70 
+        // TODO: 2018/3/28  设置具体数据（50,60,70
         mMonthIncome.setText(isOpenEye ? "70" : getString(R.string.hideWords));
         mMonthPay.setText(isOpenEye ? "60" : getString(R.string.hideWords));
         mMonthBudget.setText(isOpenEye ? "50" : getString(R.string.hideWords));
