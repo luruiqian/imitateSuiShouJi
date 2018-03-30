@@ -7,6 +7,7 @@
     tools:context="com.cashbook.cashbook.flow.AddRecordActivity">
 
     <LinearLayout
+        android:id="@+id/add_record_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/yellow_background"
@@ -42,16 +43,34 @@
                 android:textSize="15sp" />
         </RelativeLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/add_record_tab"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/add_record_list_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/add_record_list_up_arrow" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/add_record_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/add_record_list_iv" />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/add_record_vp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_record_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,4 +115,5 @@
             android:textColor="#ffffff"
             android:textSize="14sp" />
     </LinearLayout>
+
 </RelativeLayout>
