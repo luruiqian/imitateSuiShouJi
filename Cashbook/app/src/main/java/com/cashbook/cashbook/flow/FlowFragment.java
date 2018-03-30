@@ -1,6 +1,7 @@
 package com.cashbook.cashbook.flow;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
@@ -35,6 +37,8 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
     private TextView mMonthPay;
     private TextView mMonthBudget;
     private ImageView mEyesIv;
+
+    private RelativeLayout mRecordAccountRl;
     private int year;
     private int month;
     private boolean isOpenEye = true;
@@ -54,13 +58,18 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
         initData();
         initView(view);
         setData();
+        initListener();
+    }
+
+    private void initListener() {
+        mEyesIv.setOnClickListener(this);
+        mRecordAccountRl.setOnClickListener(this);
     }
 
     private void setData() {
         setDate();
         flowRecordAdapter = new FlowRecordAdapter(getActivity(), accountList);
         mRecordListView.setAdapter(flowRecordAdapter);
-        mEyesIv.setOnClickListener(this);
     }
 
     private void setDate() {
@@ -94,13 +103,15 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
-        mRecordListView = (ListView) view.findViewById(R.id.flow_record_lv);
-        mTitleMonth = (TextView) view.findViewById(R.id.flow_month);
-        mTitleYear = (TextView) view.findViewById(R.id.flow_year);
+        mRecordAccountRl = (RelativeLayout) view.findViewById(R.id.flow_record_rl);
         mMonthIncome = (TextView) view.findViewById(R.id.flow_this_month_income);
         mMonthPay = (TextView) view.findViewById(R.id.flow_this_month_output);
+        mRecordListView = (ListView) view.findViewById(R.id.flow_record_lv);
         mMonthBudget = (TextView) view.findViewById(R.id.flow_budget_tv);
         mEyesIv = (ImageView) view.findViewById(R.id.flow_open_eye_iv);
+        mTitleMonth = (TextView) view.findViewById(R.id.flow_month);
+        mTitleYear = (TextView) view.findViewById(R.id.flow_year);
+
     }
 
     @Override
@@ -114,6 +125,10 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
                 accountList.get(i).isShowMoney = isOpenEye;
             }
             flowRecordAdapter.notifyDataSetChanged();
+        } else if (v.getId() == R.id.flow_record_rl) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), AddRecordActivity.class);
+            startActivity(intent);
         }
     }
 

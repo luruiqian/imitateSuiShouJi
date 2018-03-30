@@ -4,5 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="shallow_red">#FFE9DB</color>
+    <color name="yellow_background">#FEE379</color>
+    <color name="black_yellow_background">#F69917</color>
+    <color name="black_yellow_color">#E47417</color>
+    <color name="gray_color">#AAAAAA</color>
+    <color name="black_gray_color">#6D6D70</color>
 
 </resources>
