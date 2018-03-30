@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
@@ -15,13 +16,16 @@ import com.cashbook.cashbook.flow.fragment.TabContentFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddRecordActivity extends AppCompatActivity {
+public class AddRecordActivity extends AppCompatActivity implements View.OnClickListener {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private List<String> mTabIndicators;
     private List<Fragment> mRecordFragments;
     private AddRecordPagerAdapter mAddRecordPagerAdapter;
     private FragmentManager manager;
+    private TextView mSaveTv;
+    private TextView mSaveTemplete;
+    private TextView mRecordOneMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,13 @@ public class AddRecordActivity extends AppCompatActivity {
         initView();
         initContent();
         initTab();
+        initListener();
+    }
+
+    private void initListener() {
+        mSaveTv.setOnClickListener(this);
+        mSaveTemplete.setOnClickListener(this);
+        mRecordOneMore.setOnClickListener(this);
     }
 
     private void initContent() {
@@ -71,7 +82,21 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mViewPager = (ViewPager) findViewById(R.id.add_record_vp);
+        mSaveTemplete = (TextView) findViewById(R.id.add_save_template_tv);
+        mRecordOneMore = (TextView) findViewById(R.id.add_one_more_tv);
         mTabLayout = (TabLayout) findViewById(R.id.add_record_tab);
+        mViewPager = (ViewPager) findViewById(R.id.add_record_vp);
+        mSaveTv = (TextView) findViewById(R.id.add_save_tv);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.add_save_tv) {
+
+        } else if (v.getId() == R.id.add_save_template_tv) {
+
+        } else if (v.getId() == R.id.add_one_more_tv) {
+
+        }
     }
 }

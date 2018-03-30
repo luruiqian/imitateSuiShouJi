@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private TabLayout mBottomTabLayout;
     private Fragment mCurrentFragment;
     private int mTabPosition;
-    private int[] mBottomTabResource;
     private long firstExitTime;
+    private int[] mBottomTabResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
