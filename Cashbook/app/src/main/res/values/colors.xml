@@ -9,5 +9,6 @@
     <color name="black_yellow_color">#E47417</color>
     <color name="gray_color">#AAAAAA</color>
     <color name="black_gray_color">#6D6D70</color>
+    <color name="black_trans_color">#99000000</color>
 
 </resources>

@@ -3,20 +3,26 @@ package com.cashbook.cashbook.flow;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
 import com.cashbook.cashbook.data.CashbookSQLiteOpenHelper;
 import com.cashbook.cashbook.flow.adapter.FlowRecordAdapter;
+import com.cashbook.cashbook.flow.adapter.FlowSpinnerAdapter;
 import com.cashbook.cashbook.flow.bean.AccountInfo;
 
 import java.util.ArrayList;
@@ -29,6 +35,7 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
     private SQLiteDatabase dataBase;
 
     private FlowRecordAdapter flowRecordAdapter;
+    private FlowSpinnerAdapter mFlowSpinnerAdapter;
     private List<AccountInfo> accountList;
     private ListView mRecordListView;
     private TextView mTitleYear;
@@ -37,6 +44,7 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
     private TextView mMonthPay;
     private TextView mMonthBudget;
     private ImageView mEyesIv;
+    private ImageView mInfoIv;
 
     private RelativeLayout mRecordAccountRl;
     private int year;
@@ -63,6 +71,7 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
 
     private void initListener() {
         mEyesIv.setOnClickListener(this);
+        mInfoIv.setOnClickListener(this);
         mRecordAccountRl.setOnClickListener(this);
     }
 
@@ -109,6 +118,7 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
         mRecordListView = (ListView) view.findViewById(R.id.flow_record_lv);
         mMonthBudget = (TextView) view.findViewById(R.id.flow_budget_tv);
         mEyesIv = (ImageView) view.findViewById(R.id.flow_open_eye_iv);
+        mInfoIv = (ImageView) view.findViewById(R.id.flow_info_iv);
         mTitleMonth = (TextView) view.findViewById(R.id.flow_month);
         mTitleYear = (TextView) view.findViewById(R.id.flow_year);
 
@@ -129,6 +139,32 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
             Intent intent = new Intent();
             intent.setClass(getActivity(), AddRecordActivity.class);
             startActivity(intent);
+        } else if (v.getId() == R.id.flow_info_iv) {
+            View popupView = getActivity().getLayoutInflater().inflate(R.layout.flow_info_spinner, null);
+            ListView infoLv = (ListView) popupView.findViewById(R.id.flow_sinner_lv);
+            //造数据
+            List<String> infoList = new ArrayList<>();
+            for (int i = 0; i < 6; i++) {
+                infoList.add("同步账本");
+            }
+
+            mFlowSpinnerAdapter = new FlowSpinnerAdapter(getActivity(), infoList);
+            infoLv.setAdapter(mFlowSpinnerAdapter);
+
+            PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            // TODO: 2016/5/17 设置背景颜色
+            window.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.pop_bg));
+            // TODO: 2016/5/17 设置可以获取焦点
+            window.setWidth(600);
+            window.setFocusable(true);
+            // TODO: 2016/5/17 设置可以触摸弹出框以外的区域
+            window.setOutsideTouchable(true);
+            // TODO：更新popupwindow的状态
+//            window.update();
+            // TODO: 2016/5/17 以下拉的方式显示，并且可以设置显示的位置
+//            window.showAsDropDown(mInfoIv);
+            window.showAsDropDown(mInfoIv,0,20);
+
         }
     }
 
