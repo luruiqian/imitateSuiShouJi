@@ -3,8 +3,6 @@ package com.cashbook.cashbook.flow;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -140,7 +138,8 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
             intent.setClass(getActivity(), AddRecordActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.flow_info_iv) {
-            View popupView = getActivity().getLayoutInflater().inflate(R.layout.flow_info_spinner, null);
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View popupView = layoutInflater.inflate(R.layout.flow_info_spinner, null);
             ListView infoLv = (ListView) popupView.findViewById(R.id.flow_sinner_lv);
             //造数据
             List<String> infoList = new ArrayList<>();
@@ -151,19 +150,18 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
             mFlowSpinnerAdapter = new FlowSpinnerAdapter(getActivity(), infoList);
             infoLv.setAdapter(mFlowSpinnerAdapter);
 
-            PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            PopupWindow window = new PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
             // TODO: 2016/5/17 设置背景颜色
             window.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.pop_bg));
             // TODO: 2016/5/17 设置可以获取焦点
-            window.setWidth(600);
             window.setFocusable(true);
             // TODO: 2016/5/17 设置可以触摸弹出框以外的区域
             window.setOutsideTouchable(true);
-            // TODO：更新popupwindow的状态
-//            window.update();
+            //测量listview的宽度，将PopupWindow宽度设置为listview的宽度，否则会宽度铺满全屏
+            infoLv.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            window.setWidth(infoLv.getMeasuredWidth());
             // TODO: 2016/5/17 以下拉的方式显示，并且可以设置显示的位置
-//            window.showAsDropDown(mInfoIv);
-            window.showAsDropDown(mInfoIv,0,20);
+            window.showAtLocation(mInfoIv,Gravity.RIGHT, 20, 0);
 
         }
     }

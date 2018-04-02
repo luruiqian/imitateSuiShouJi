@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:text="流水"
-        android:textColor="#ff00"
+        android:textColor="#ffffff"
         android:textSize="14sp" />
 </LinearLayout>
