@@ -161,7 +161,8 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
             infoLv.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             window.setWidth(infoLv.getMeasuredWidth());
             // TODO: 2016/5/17 以下拉的方式显示，并且可以设置显示的位置
-            window.showAtLocation(mInfoIv,Gravity.RIGHT, 20, 0);
+//            window.showAsDropDown(mInfoIv,-200,20);
+            window.showAtLocation(mInfoIv, Gravity.RIGHT, 20, -120);
 
         }
     }
