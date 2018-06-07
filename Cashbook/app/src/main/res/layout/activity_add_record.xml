@@ -73,6 +73,7 @@
         android:layout_below="@id/add_record_title" />
 
     <LinearLayout
+        android:id="@+id/add_record_bottom_ly"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"

@@ -1,5 +1,6 @@
 package com.cashbook.cashbook.flow;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,11 +9,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.database.CashbookDatabaseManager;
+import com.cashbook.cashbook.database.CashbookInfo;
+import com.cashbook.cashbook.database.CashbookSQLiteOpenHelper;
 import com.cashbook.cashbook.flow.adapter.AddRecordPagerAdapter;
-import com.cashbook.cashbook.flow.fragment.TabContentFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordBalanceFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordBaoxiaoFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordDaifuFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordRefundFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordShouruFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordTemplateFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordToLoanFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordTransferAccountsFragment;
+import com.cashbook.cashbook.flow.fragment.AddRecordZhichuFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +33,21 @@ import java.util.List;
 public class AddRecordActivity extends AppCompatActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private List<String> mTabIndicators;
-    private List<Fragment> mRecordFragments;
-    private AddRecordPagerAdapter mAddRecordPagerAdapter;
-    private FragmentManager manager;
     private TextView mSaveTv;
     private TextView mBottonSaveTv;
     private TextView mSaveTemplete;
     private TextView mRecordOneMore;
     private ImageView mBackIv;
+    private LinearLayout mBottomSaveTemplateLy;
+
+    private List<String> mTabIndicators;
+    private List<Fragment> mRecordFragments;
+
+    private FragmentManager manager;
+    private AddRecordPagerAdapter mAddRecordPagerAdapter;
+    private CashbookSQLiteOpenHelper mCashbookSQLiteOpenHelper;
+    private SQLiteDatabase mSQLiteDatabase;
+    private CashbookDatabaseManager mCashbookDatabaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +70,38 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initContent() {
-        mRecordFragments = new ArrayList<>();
-        mTabIndicators = new ArrayList<>();
-        mTabIndicators.add("模板");
-        mTabIndicators.add("代付");
-        mTabIndicators.add("支出");
-        mTabIndicators.add("收入");
-        mTabIndicators.add("转账");
-        mTabIndicators.add("余额");
-        mTabIndicators.add("借贷");
-        mTabIndicators.add("报销");
-        mTabIndicators.add("退款");
-        for (int i = 0; i < mTabIndicators.size(); i++) {
-            mRecordFragments.add(TabContentFragment.newInstance(mTabIndicators.get(i)));
+        mCashbookSQLiteOpenHelper = new CashbookSQLiteOpenHelper(AddRecordActivity.this);
+        mSQLiteDatabase = SQLiteDatabase.openOrCreateDatabase(getFilesDir() + "account.db", null);
+        mCashbookDatabaseManager = new CashbookDatabaseManager(mSQLiteDatabase, mCashbookSQLiteOpenHelper);
+        for (int i = 0; i < 9; i++) {
+            CashbookInfo cashbookInfo = new CashbookInfo();
+            cashbookInfo.money = "0.00";
+            cashbookInfo.name = "代付";
+            cashbookInfo.beizhu = 1;
+//            List<CashbookInfo.AccountItem> accountItemList = new ArrayList<>();
+//            CashbookInfo.AccountItem accountItem1 = new CashbookInfo.AccountItem();
+//            accountItem1.itemName = "借出账户";
+//            accountItem1.itemDesc = "现金(CNY)";
+//            CashbookInfo.AccountItem accountItem2 = new CashbookInfo.AccountItem();
+//            accountItem2.itemName = "借贷人（借钱给谁）";
+//            accountItem2.itemDesc = "亲戚";
+//            accountItemList.add(accountItem1);
+//            accountItemList.add(accountItem2);
+//            cashbookInfo.accountItemList = accountItemList;
+            mCashbookDatabaseManager.addAccountData(cashbookInfo);
         }
+        mTabIndicators = mCashbookDatabaseManager.qurryAccountTitle();
+
+        mRecordFragments = new ArrayList<>();
+        mRecordFragments.add(AddRecordTemplateFragment.newInstance("模板"));
+        mRecordFragments.add(AddRecordDaifuFragment.newInstance("代付"));
+        mRecordFragments.add(AddRecordZhichuFragment.newInstance("支出"));
+        mRecordFragments.add(AddRecordShouruFragment.newInstance("收入"));
+        mRecordFragments.add(AddRecordTransferAccountsFragment.newInstance("转账"));
+        mRecordFragments.add(AddRecordBalanceFragment.newInstance("余额"));
+        mRecordFragments.add(AddRecordToLoanFragment.newInstance("借贷"));
+        mRecordFragments.add(AddRecordBaoxiaoFragment.newInstance("报销"));
+        mRecordFragments.add(AddRecordRefundFragment.newInstance("退款"));
         manager = getSupportFragmentManager();
         mAddRecordPagerAdapter = new AddRecordPagerAdapter(manager, mRecordFragments, mTabIndicators);
     }
@@ -80,13 +117,13 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                 mTabLayout.addTab(itemTab);
             }
         }
-//        selectTab(1);
-        mTabLayout.getTabAt(1).getCustomView().setSelected(true);
-        setSaveBtnStatus(mTabLayout.getTabAt(1));
         mViewPager.setAdapter(mAddRecordPagerAdapter);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         //把viewpager和tablayout联系起来
         mTabLayout.setupWithViewPager(mViewPager);
+        //一下两个条件一起设置才可以使默认选中第二个选项
+        mViewPager.setCurrentItem(1);
+        mTabLayout.getTabAt(1).select();
 
     }
 
@@ -102,13 +139,14 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initView() {
-        mSaveTemplete = (TextView) findViewById(R.id.add_save_template_tv);
-        mRecordOneMore = (TextView) findViewById(R.id.add_one_more_tv);
-        mTabLayout = (TabLayout) findViewById(R.id.add_record_tab);
-        mSaveTv = (TextView) findViewById(R.id.add_record_save_tv);
-        mBottonSaveTv = (TextView) findViewById(R.id.add_save_tv);
-        mViewPager = (ViewPager) findViewById(R.id.add_record_vp);
         mBackIv = (ImageView) findViewById(R.id.add_record_iv);
+        mViewPager = (ViewPager) findViewById(R.id.add_record_vp);
+        mBottonSaveTv = (TextView) findViewById(R.id.add_save_tv);
+        mSaveTv = (TextView) findViewById(R.id.add_record_save_tv);
+        mTabLayout = (TabLayout) findViewById(R.id.add_record_tab);
+        mRecordOneMore = (TextView) findViewById(R.id.add_one_more_tv);
+        mSaveTemplete = (TextView) findViewById(R.id.add_save_template_tv);
+        mBottomSaveTemplateLy = (LinearLayout) findViewById(R.id.add_record_bottom_ly);
     }
 
     @Override
@@ -128,9 +166,19 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
 
     private void setSaveBtnStatus(TabLayout.Tab tab) {
         if (mTabIndicators.get(tab.getPosition()).equals("模板")) {
-            mBottonSaveTv.setVisibility(View.GONE);
+            mSaveTv.setVisibility(View.GONE);
+            mBottomSaveTemplateLy.setVisibility(View.GONE);
         } else {
-            mBottonSaveTv.setVisibility(View.VISIBLE);
+            mSaveTv.setVisibility(View.VISIBLE);
+            mBottomSaveTemplateLy.setVisibility(View.VISIBLE);
+            //支出，收入，转账有存为模板按钮
+            if (mTabIndicators.get(tab.getPosition()).equals("支出") ||
+                    mTabIndicators.get(tab.getPosition()).equals("收入") ||
+                    mTabIndicators.get(tab.getPosition()).equals("转账")) {
+                mSaveTemplete.setVisibility(View.VISIBLE);
+            } else {
+                mSaveTemplete.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -147,5 +195,13 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mSQLiteDatabase != null) {
+            mSQLiteDatabase.close();
+        }
     }
 }

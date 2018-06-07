@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cashbook.cashbook.flow.fragment.AddRecordTemplateFragment">
+
+    <!--<ListView-->
+    <!--android:id="@+id/add_record_template_lv"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:divider="@color/color_999999"-->
+    <!--android:dividerHeight="0.5dp"-->
+    <!--android:paddingLeft="10dp" />-->
+    <TextView
+        android:id="@+id/add_record_tab_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</FrameLayout>
