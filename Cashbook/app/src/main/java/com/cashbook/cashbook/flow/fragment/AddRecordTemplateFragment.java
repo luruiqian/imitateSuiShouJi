@@ -7,21 +7,28 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.database.CashbookTemplate;
+import com.cashbook.cashbook.flow.adapter.AddRecordTemplateAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author luruiqian
+ */
 public class AddRecordTemplateFragment extends Fragment {
-    private static String pageName;
-    private TextView mTextView;
+    private ListView mTemplateLv;
     private static AddRecordTemplateFragment mTemplateFragment;
+    private AddRecordTemplateAdapter mAddRecordTemplateAdapter;
+    private static List<CashbookTemplate> mTemplateItemList = new ArrayList<>();
 
     public AddRecordTemplateFragment() {
     }
 
-    public static AddRecordTemplateFragment newInstance(String name) {
-        pageName = name;
-
+    public static AddRecordTemplateFragment newInstance() {
         if (mTemplateFragment == null) {
             mTemplateFragment = new AddRecordTemplateFragment();
         }
@@ -46,9 +53,14 @@ public class AddRecordTemplateFragment extends Fragment {
         initView(view);
     }
 
+    public static void getData(List<CashbookTemplate> templateItemList) {
+        mTemplateItemList = templateItemList;
+    }
+
     private void initView(View view) {
-        mTextView = (TextView) view.findViewById(R.id.add_record_tab_tv);
-        mTextView.setText(pageName);
+        mTemplateLv = (ListView) view.findViewById(R.id.add_record_template_lv);
+        mAddRecordTemplateAdapter = new AddRecordTemplateAdapter(mTemplateItemList, getActivity());
+        mTemplateLv.setAdapter(mAddRecordTemplateAdapter);
     }
 
     @Override

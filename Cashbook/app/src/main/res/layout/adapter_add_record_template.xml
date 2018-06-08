@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/flow_add_record_template_type_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_999999"
+        android:textSize="12sp"
+        tools:text="支出" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/flow_add_record_template_item_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/adapter_flow_account_icon" />
+
+        <TextView
+            android:id="@+id/flow_add_record_template_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/flow_add_record_template_item_iv"
+            android:textColor="@color/color_666666"
+            android:textSize="14sp"
+            tools:text="早午餐" />
+
+        <TextView
+            android:id="@+id/flow_add_record_template_count_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/flow_add_record_template_name_tv"
+            android:textColor="@color/color_green"
+            tools:text="12.00" />
+
+        <TextView
+            android:id="@+id/flow_add_record_template_beizhu_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/flow_add_record_template_name_tv"
+            android:layout_below="@+id/flow_add_record_template_name_tv"
+            android:layout_toRightOf="@id/flow_add_record_template_item_iv"
+            android:textColor="@color/color_999999"
+            android:textSize="11sp"
+            tools:text="示例模板" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/flow_more"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</LinearLayout>

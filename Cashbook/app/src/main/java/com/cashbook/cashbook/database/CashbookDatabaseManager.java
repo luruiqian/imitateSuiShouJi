@@ -15,15 +15,30 @@ public class CashbookDatabaseManager {
     private CashbookSQLiteOpenHelper mCashbookSQLiteOpenHelper;
     private List<String> mNameList = new ArrayList<>();
 
-    public CashbookDatabaseManager(SQLiteDatabase sQLiteDatabase, CashbookSQLiteOpenHelper cashbookSQLiteOpenHelper) {
+    public CashbookDatabaseManager(CashbookSQLiteOpenHelper cashbookSQLiteOpenHelper) {
         mCashbookSQLiteOpenHelper = cashbookSQLiteOpenHelper;
     }
 
-    public void addTemplateData(CashbookTemplate cashbookTemplate) {
+    public void addTemplateData() {
         SQLiteDatabase templateDatabase = mCashbookSQLiteOpenHelper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("name", cashbookTemplate.name);
-        templateDatabase.insert(mCashbookSQLiteOpenHelper.CREATE_TABLE_TEMPLATE, null, cv);
+        String sql = "select * from accountTable where beizhu=1";
+        Cursor cursor = templateDatabase.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            CashbookTemplate cashbookTemplate = new CashbookTemplate();
+            if (cursor.getInt(5) == 1) {
+                ContentValues cv = new ContentValues();
+                cv.put("name", cashbookTemplate.name);
+                cv.put("type", cashbookTemplate.type);
+                cv.put("money", cashbookTemplate.money);
+                cv.put("beizhu", cashbookTemplate.beizhu);
+                cv.put("itemName", cashbookTemplate.itemName);
+                cv.put("itemDesc", cashbookTemplate.itemDesc);
+                templateDatabase.insert(mCashbookSQLiteOpenHelper.CREATE_TABLE_TEMPLATE, null, cv);
+            }
+        }
+        cursor.close();
+        templateDatabase.close();
+
     }
 
     public List<Long> addAccountData(CashbookInfo cashbookInfo) {
@@ -43,7 +58,7 @@ public class CashbookDatabaseManager {
         return accountList;
     }
 
-    public List<String> qurryAccountTitle() {
+    public List<String> queryAccountTitle() {
         SQLiteDatabase accountDatabase = mCashbookSQLiteOpenHelper.getReadableDatabase();
         Cursor cursor = accountDatabase.query("accountTable", null, null, null, null, null, null);
         //判断游标是否为空
@@ -56,5 +71,19 @@ public class CashbookDatabaseManager {
         cursor.close();
         accountDatabase.close();
         return mNameList;
+    }
+
+    public List<CashbookTemplate> queryTemplateList() {
+        List<CashbookTemplate> templateItemList = new ArrayList<>();
+        SQLiteDatabase templateDatabase = mCashbookSQLiteOpenHelper.getReadableDatabase();
+        String sql = "select * from templateTable";
+        Cursor cursor = templateDatabase.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            CashbookTemplate templateItem = new CashbookTemplate();
+            templateItemList.add(templateItem);
+        }
+        cursor.close();
+        templateDatabase.close();
+        return templateItemList;
     }
 }

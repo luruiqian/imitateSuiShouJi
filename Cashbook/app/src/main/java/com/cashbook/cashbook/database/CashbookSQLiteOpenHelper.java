@@ -23,6 +23,11 @@ public class CashbookSQLiteOpenHelper extends SQLiteOpenHelper {
      */
     public final String CREATE_TABLE_TEMPLATE = "create table templateTable ("
             + "id integer primary key autoincrement,"
+            + "type text,"
+            + "money text,"
+            + "itemName text,"
+            + "itemDesc text,"
+            + "beizhu int,"
             + "name text)";
     public final String CREATE_TABLE_ACCOUNT = "create table accountTable ("
             + "id integer primary key autoincrement,"

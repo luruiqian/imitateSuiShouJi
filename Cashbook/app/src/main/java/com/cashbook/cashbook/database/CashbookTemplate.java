@@ -6,4 +6,10 @@ package com.cashbook.cashbook.database;
 
 public class CashbookTemplate {
     public String name;
+    public String money;
+    public String itemName;
+    public String itemDesc;
+    public int beizhu;
+    public String type;
+
 }

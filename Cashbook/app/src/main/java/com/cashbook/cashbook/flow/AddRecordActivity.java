@@ -16,6 +16,7 @@ import com.cashbook.cashbook.R;
 import com.cashbook.cashbook.database.CashbookDatabaseManager;
 import com.cashbook.cashbook.database.CashbookInfo;
 import com.cashbook.cashbook.database.CashbookSQLiteOpenHelper;
+import com.cashbook.cashbook.database.CashbookTemplate;
 import com.cashbook.cashbook.flow.adapter.AddRecordPagerAdapter;
 import com.cashbook.cashbook.flow.fragment.AddRecordBalanceFragment;
 import com.cashbook.cashbook.flow.fragment.AddRecordBaoxiaoFragment;
@@ -72,7 +73,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     private void initContent() {
         mCashbookSQLiteOpenHelper = new CashbookSQLiteOpenHelper(AddRecordActivity.this);
         mSQLiteDatabase = SQLiteDatabase.openOrCreateDatabase(getFilesDir() + "account.db", null);
-        mCashbookDatabaseManager = new CashbookDatabaseManager(mSQLiteDatabase, mCashbookSQLiteOpenHelper);
+        mCashbookDatabaseManager = new CashbookDatabaseManager(mCashbookSQLiteOpenHelper);
         for (int i = 0; i < 9; i++) {
             CashbookInfo cashbookInfo = new CashbookInfo();
             cashbookInfo.money = "0.00";
@@ -90,10 +91,13 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
 //            cashbookInfo.accountItemList = accountItemList;
             mCashbookDatabaseManager.addAccountData(cashbookInfo);
         }
-        mTabIndicators = mCashbookDatabaseManager.qurryAccountTitle();
-
+        mTabIndicators = mCashbookDatabaseManager.queryAccountTitle();
+        mCashbookDatabaseManager.addTemplateData();
+        List<CashbookTemplate> templateItemList = mCashbookDatabaseManager.queryTemplateList();
         mRecordFragments = new ArrayList<>();
-        mRecordFragments.add(AddRecordTemplateFragment.newInstance("模板"));
+
+        mRecordFragments.add(AddRecordTemplateFragment.newInstance());
+        AddRecordTemplateFragment.getData(templateItemList);
         mRecordFragments.add(AddRecordDaifuFragment.newInstance("代付"));
         mRecordFragments.add(AddRecordZhichuFragment.newInstance("支出"));
         mRecordFragments.add(AddRecordShouruFragment.newInstance("收入"));
