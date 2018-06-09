@@ -1,6 +1,5 @@
 package com.cashbook.cashbook.flow;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -47,7 +46,6 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     private FragmentManager manager;
     private AddRecordPagerAdapter mAddRecordPagerAdapter;
     private CashbookSQLiteOpenHelper mCashbookSQLiteOpenHelper;
-    private SQLiteDatabase mSQLiteDatabase;
     private CashbookDatabaseManager mCashbookDatabaseManager;
 
     @Override
@@ -71,29 +69,16 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initContent() {
-        mCashbookSQLiteOpenHelper = new CashbookSQLiteOpenHelper(AddRecordActivity.this);
-        mSQLiteDatabase = SQLiteDatabase.openOrCreateDatabase(getFilesDir() + "account.db", null);
-        mCashbookDatabaseManager = new CashbookDatabaseManager(mCashbookSQLiteOpenHelper);
-        for (int i = 0; i < 9; i++) {
-            CashbookInfo cashbookInfo = new CashbookInfo();
-            cashbookInfo.money = "0.00";
-            cashbookInfo.name = "代付";
-            cashbookInfo.beizhu = 1;
-//            List<CashbookInfo.AccountItem> accountItemList = new ArrayList<>();
-//            CashbookInfo.AccountItem accountItem1 = new CashbookInfo.AccountItem();
-//            accountItem1.itemName = "借出账户";
-//            accountItem1.itemDesc = "现金(CNY)";
-//            CashbookInfo.AccountItem accountItem2 = new CashbookInfo.AccountItem();
-//            accountItem2.itemName = "借贷人（借钱给谁）";
-//            accountItem2.itemDesc = "亲戚";
-//            accountItemList.add(accountItem1);
-//            accountItemList.add(accountItem2);
-//            cashbookInfo.accountItemList = accountItemList;
-            mCashbookDatabaseManager.addAccountData(cashbookInfo);
+        List<CashbookTemplate> templateItemList = new ArrayList<>();
+        if (mCashbookDatabaseManager == null && mCashbookSQLiteOpenHelper == null) {
+            mCashbookSQLiteOpenHelper = new CashbookSQLiteOpenHelper(AddRecordActivity.this);
+            mCashbookDatabaseManager = new CashbookDatabaseManager(mCashbookSQLiteOpenHelper);
         }
-        mTabIndicators = mCashbookDatabaseManager.queryAccountTitle();
+        mCashbookDatabaseManager.cleanAccountData();
+        addIndicators();
         mCashbookDatabaseManager.addTemplateData();
-        List<CashbookTemplate> templateItemList = mCashbookDatabaseManager.queryTemplateList();
+        templateItemList = mCashbookDatabaseManager.queryTemplateList();
+
         mRecordFragments = new ArrayList<>();
 
         mRecordFragments.add(AddRecordTemplateFragment.newInstance());
@@ -108,6 +93,27 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         mRecordFragments.add(AddRecordRefundFragment.newInstance("退款"));
         manager = getSupportFragmentManager();
         mAddRecordPagerAdapter = new AddRecordPagerAdapter(manager, mRecordFragments, mTabIndicators);
+    }
+
+    private void addIndicators() {
+        for (int i = 0; i < 9; i++) {
+            CashbookInfo cashbookInfo = new CashbookInfo();
+            cashbookInfo.money = "0.00";
+            cashbookInfo.name = "代付" + i;
+            cashbookInfo.beizhu = 1;
+//            List<CashbookInfo.AccountItem> accountItemList = new ArrayList<>();
+//            CashbookInfo.AccountItem accountItem1 = new CashbookInfo.AccountItem();
+//            accountItem1.itemName = "借出账户";
+//            accountItem1.itemDesc = "现金(CNY)";
+//            CashbookInfo.AccountItem accountItem2 = new CashbookInfo.AccountItem();
+//            accountItem2.itemName = "借贷人（借钱给谁）";
+//            accountItem2.itemDesc = "亲戚";
+//            accountItemList.add(accountItem1);
+//            accountItemList.add(accountItem2);
+//            cashbookInfo.accountItemList = accountItemList;
+            mCashbookDatabaseManager.addAccountData(cashbookInfo);
+        }
+        mTabIndicators = mCashbookDatabaseManager.queryAccountTitle();
     }
 
     private void initTab() {
@@ -204,8 +210,5 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mSQLiteDatabase != null) {
-            mSQLiteDatabase.close();
-        }
     }
 }
