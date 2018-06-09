@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
 import com.cashbook.cashbook.database.CashbookTemplate;
-import com.cashbook.cashbook.flow.bean.TemplateItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class AddRecordTemplateAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return (mTemplateItemList == null && mTemplateItemList.size() > 0) ? mTemplateItemList.size() : 0;
+        return (mTemplateItemList != null && mTemplateItemList.size() > 0) ? mTemplateItemList.size() : 0;
     }
 
     @Override
@@ -56,16 +55,16 @@ public class AddRecordTemplateAdapter extends BaseAdapter {
         holder.accountName = (TextView) convertView.findViewById(R.id.flow_add_record_template_name_tv);
         holder.accountCount = (TextView) convertView.findViewById(R.id.flow_add_record_template_count_tv);
         holder.accountBeizhu = (TextView) convertView.findViewById(R.id.flow_add_record_template_beizhu_tv);
-        TemplateItem templateItem = (TemplateItem) getItem(position);
+        CashbookTemplate templateItem = (CashbookTemplate) getItem(position);
         bindData(holder, templateItem);
         return convertView;
     }
 
-    private void bindData(ViewHolder holder, TemplateItem templateItem) {
+    private void bindData(ViewHolder holder, CashbookTemplate templateItem) {
         holder.accountName.setText(templateItem.itemName);
-        holder.accountType.setText(templateItem.itemTyped);
-        holder.accountCount.setText(templateItem.itemMoney);
-        holder.accountBeizhu.setText(templateItem.itemBeizhu);
+        holder.accountType.setText(templateItem.type);
+        holder.accountCount.setText(templateItem.money);
+        holder.accountBeizhu.setText(templateItem.beizhu + "");
     }
 
     class ViewHolder {

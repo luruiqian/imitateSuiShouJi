@@ -24,17 +24,14 @@ public class CashbookDatabaseManager {
         String sql = "select * from accountTable where beizhu=1";
         Cursor cursor = templateDatabase.rawQuery(sql, null);
         while (cursor.moveToNext()) {
-            CashbookTemplate cashbookTemplate = new CashbookTemplate();
-            if (cursor.getInt(5) == 1) {
-                ContentValues cv = new ContentValues();
-                cv.put("name", cashbookTemplate.name);
-                cv.put("type", cashbookTemplate.type);
-                cv.put("money", cashbookTemplate.money);
-                cv.put("beizhu", cashbookTemplate.beizhu);
-                cv.put("itemName", cashbookTemplate.itemName);
-                cv.put("itemDesc", cashbookTemplate.itemDesc);
-                templateDatabase.insert(mCashbookSQLiteOpenHelper.CREATE_TABLE_TEMPLATE, null, cv);
-            }
+            ContentValues cv = new ContentValues();
+            cv.put("type", cursor.getString(1));
+            cv.put("money", cursor.getString(2));
+            cv.put("itemName", cursor.getString(3));
+            cv.put("itemDesc", cursor.getString(4));
+            cv.put("beizhu", cursor.getString(5));
+            cv.put("name", cursor.getString(6));
+            templateDatabase.insert("templateTable", null, cv);
         }
         cursor.close();
         templateDatabase.close();
@@ -76,10 +73,15 @@ public class CashbookDatabaseManager {
     public List<CashbookTemplate> queryTemplateList() {
         List<CashbookTemplate> templateItemList = new ArrayList<>();
         SQLiteDatabase templateDatabase = mCashbookSQLiteOpenHelper.getReadableDatabase();
-        String sql = "select * from templateTable";
-        Cursor cursor = templateDatabase.rawQuery(sql, null);
+        Cursor cursor = templateDatabase.query("templateTable", null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             CashbookTemplate templateItem = new CashbookTemplate();
+            templateItem.type = cursor.getString(1);
+            templateItem.money = cursor.getString(2);
+            templateItem.itemName = cursor.getString(3);
+            templateItem.itemDesc = cursor.getString(4);
+            templateItem.beizhu = cursor.getInt(5);
+            templateItem.name = cursor.getString(6);
             templateItemList.add(templateItem);
         }
         cursor.close();

@@ -17,7 +17,7 @@ public class CashbookSQLiteOpenHelper extends SQLiteOpenHelper {
     /**
      * 数据库版本号
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     /**
      * 创建表
      */
@@ -58,6 +58,14 @@ public class CashbookSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        switch (oldVersion) {
+            case 1:
+                db.execSQL("alter table templateTable add colume type text");
+                db.execSQL("alter table templateTable add colume money text");
+                db.execSQL("alter table templateTable add colume itemName text");
+                db.execSQL("alter table templateTable add colume itemDesc text");
+                db.execSQL("alter table templateTable add colume beizhu text");
+            default:
+        }
     }
 }
