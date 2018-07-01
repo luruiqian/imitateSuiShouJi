@@ -11,6 +11,7 @@ public class CashbookInfo {
     public String money;
     public List<AccountItem> accountItemList;
     public String name;
+    public String type;
 
 
     public static class AccountItem {

@@ -78,6 +78,7 @@ public class CashbookDatabaseManager {
         cv.put("money", cashbookInfo.money);
         cv.put("beizhu", cashbookInfo.beizhu);
         cv.put("name", cashbookInfo.name);
+        cv.put("type", cashbookInfo.type);
 //        cv.putAll(subCV);
         long rowid = accountDatabase.insert("accountTable", null, cv);
         accountList.add(rowid);

@@ -101,6 +101,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
             cashbookInfo.money = "0.00";
             cashbookInfo.name = "代付" + i;
             cashbookInfo.beizhu = 1;
+            cashbookInfo.type = "指出";
 //            List<CashbookInfo.AccountItem> accountItemList = new ArrayList<>();
 //            CashbookInfo.AccountItem accountItem1 = new CashbookInfo.AccountItem();
 //            accountItem1.itemName = "借出账户";
