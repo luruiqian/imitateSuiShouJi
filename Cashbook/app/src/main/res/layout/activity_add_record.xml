@@ -66,12 +66,6 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/add_record_vp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/add_record_title" />
-
     <LinearLayout
         android:id="@+id/add_record_bottom_ly"
         android:layout_width="match_parent"
@@ -116,5 +110,12 @@
             android:textColor="#ffffff"
             android:textSize="14sp" />
     </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/add_record_vp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/add_record_bottom_ly"
+        android:layout_below="@id/add_record_title" />
 
 </RelativeLayout>
