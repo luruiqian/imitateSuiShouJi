@@ -28,7 +28,7 @@ public class CashbookDatabaseManager {
         SQLiteDatabase templateDatabase = mCashbookSQLiteOpenHelper.getWritableDatabase();
         //先清除表中的数据，然后重新查找添加
         templateDatabase.execSQL("DELETE FROM " + "templateTable");
-        String sql = "select * from accountTable where beizhu=1";
+        String sql = "select * from accountTable where isTemplate=1";
         Cursor cursor = templateDatabase.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             ContentValues cv = new ContentValues();
@@ -38,6 +38,7 @@ public class CashbookDatabaseManager {
             cv.put("itemDesc", cursor.getString(4));
             cv.put("beizhu", cursor.getString(5));
             cv.put("name", cursor.getString(6));
+            cv.put("isTemplate", cursor.getString(7));
             templateDatabase.insert("templateTable", null, cv);
         }
         cursor.close();
@@ -59,6 +60,7 @@ public class CashbookDatabaseManager {
             templateItem.itemDesc = cursor.getString(4);
             templateItem.beizhu = cursor.getInt(5);
             templateItem.name = cursor.getString(6);
+            templateItem.isTemplate = cursor.getInt(7);
             templateItemList.add(templateItem);
         }
         cursor.close();
@@ -78,6 +80,7 @@ public class CashbookDatabaseManager {
         cv.put("money", cashbookInfo.money);
         cv.put("beizhu", cashbookInfo.beizhu);
         cv.put("name", cashbookInfo.name);
+        cv.put("isTemplate", cashbookInfo.isTemplate);
         cv.put("type", cashbookInfo.type);
 //        cv.putAll(subCV);
         long rowid = accountDatabase.insert("accountTable", null, cv);

@@ -44,6 +44,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/add_record_drop_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

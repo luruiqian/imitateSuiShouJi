@@ -8,10 +8,11 @@ import java.util.List;
 
 public class CashbookInfo {
     public int beizhu;
+    public int isTemplate;
+    public String type;
+    public String name;
     public String money;
     public List<AccountItem> accountItemList;
-    public String name;
-    public String type;
 
 
     public static class AccountItem {

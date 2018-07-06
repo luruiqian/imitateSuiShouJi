@@ -62,7 +62,7 @@ public class AddRecordTemplateAdapter extends BaseAdapter {
 
     private void bindData(ViewHolder holder, CashbookTemplate templateItem) {
         holder.accountName.setText(templateItem.itemName);
-        holder.accountType.setText(templateItem.type);
+        holder.accountType.setText(templateItem.name);
         holder.accountCount.setText(templateItem.money);
         holder.accountBeizhu.setText(templateItem.beizhu + "");
     }

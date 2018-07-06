@@ -17,7 +17,7 @@ public class CashbookSQLiteOpenHelper extends SQLiteOpenHelper {
     /**
      * 数据库版本号
      */
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     /**
      * 创建表
      */
@@ -28,7 +28,8 @@ public class CashbookSQLiteOpenHelper extends SQLiteOpenHelper {
             + "itemName text,"
             + "itemDesc text,"
             + "beizhu int,"
-            + "name text)";
+            + "name text,"
+            + "isTemplate int)";
     public final String CREATE_TABLE_ACCOUNT = "create table accountTable ("
             + "id integer primary key autoincrement,"
             + "type text,"
@@ -36,7 +37,8 @@ public class CashbookSQLiteOpenHelper extends SQLiteOpenHelper {
             + "itemName text,"
             + "itemDesc text,"
             + "beizhu int,"
-            + "name text)";
+            + "name text,"
+            + "isTemplate int)";
 
     public CashbookSQLiteOpenHelper(Context context) {
         this(context, DATABASE_NAME, null, DATABASE_VERSION);
