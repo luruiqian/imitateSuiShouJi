@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
+    android:background="#B3ffffff"
     android:orientation="vertical">
 
     <TextView
@@ -14,6 +14,7 @@
         android:id="@+id/add_record_drop_dgv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
         android:horizontalSpacing="10dp"
         android:numColumns="4"
         android:verticalSpacing="10dp" />

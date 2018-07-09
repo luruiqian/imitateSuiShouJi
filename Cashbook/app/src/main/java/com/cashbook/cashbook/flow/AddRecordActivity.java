@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -242,9 +243,22 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         } else if (v.getId() == R.id.add_record_drop_rl) {
             final List<HashMap<String, Object>> dataSourceList = new ArrayList<>();
             View root = LayoutInflater.from(AddRecordActivity.this).inflate(R.layout.add_record_drop_popup, null);
-            PopupWindow popupWindow = new PopupWindow(root, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            //popupwindow 点击返回键可消失的设置
+            root.setFocusable(true);
+            root.setFocusableInTouchMode(true);
+            final PopupWindow popupWindow = new PopupWindow(root, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
             popupWindow.showAsDropDown(mTabLayout);
-            popupWindow.setFocusable(false);
+            popupWindow.setFocusable(true);
+            root.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
             DragGridView dragGridView = (DragGridView) root.findViewById(R.id.add_record_drop_dgv);
             HashMap<String, Object> itemHashMap1 = new HashMap<>();
@@ -277,6 +291,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
             final SimpleAdapter simpleAdapter = new SimpleAdapter(AddRecordActivity.this, dataSourceList,
                     R.layout.drag_grid_view_item, new String[]{"item_text"}, new int[]{R.id.item_text});
             dragGridView.setAdapter(simpleAdapter);
+
             dragGridView.setOnChangeListener(new DragGridView.OnChanageListener() {
                 @Override
                 public void onChange(int form, int to) {
@@ -298,6 +313,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     parent.getChildAt(position).setSelected(true);
+                    mViewPager.setCurrentItem(position);
                 }
             });
         }
