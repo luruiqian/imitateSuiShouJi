@@ -10,12 +10,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
@@ -25,6 +23,8 @@ import com.cashbook.cashbook.database.CashbookInfo;
 import com.cashbook.cashbook.database.CashbookSQLiteOpenHelper;
 import com.cashbook.cashbook.database.CashbookTemplate;
 import com.cashbook.cashbook.flow.adapter.AddRecordPagerAdapter;
+import com.cashbook.cashbook.flow.adapter.DragAdapter;
+import com.cashbook.cashbook.flow.bean.DragInfo;
 import com.cashbook.cashbook.flow.fragment.AddRecordBalanceFragment;
 import com.cashbook.cashbook.flow.fragment.AddRecordBaoxiaoFragment;
 import com.cashbook.cashbook.flow.fragment.AddRecordDaifuFragment;
@@ -241,7 +241,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         } else if (v.getId() == R.id.add_record_save_tv) {
 
         } else if (v.getId() == R.id.add_record_drop_rl) {
-            final List<HashMap<String, Object>> dataSourceList = new ArrayList<>();
+            final List<HashMap<String, DragInfo>> dataSourceList = new ArrayList<>();
             View root = LayoutInflater.from(AddRecordActivity.this).inflate(R.layout.add_record_drop_popup, null);
             //popupwindow 点击返回键可消失的设置
             root.setFocusable(true);
@@ -259,43 +259,69 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                     return false;
                 }
             });
+            HashMap<String, DragInfo> dragMap1 = new HashMap<>();
+            DragInfo dragInfo1 = new DragInfo();
+            dragInfo1.dragName = "模板";
+            dragMap1.put("dragInfo", dragInfo1);
+            dataSourceList.add(dragMap1);
+
+            HashMap<String, DragInfo> dragMap2 = new HashMap<>();
+            DragInfo dragInfo2 = new DragInfo();
+            dragInfo2.dragName = "支出";
+            dragMap2.put("dragInfo", dragInfo2);
+            dataSourceList.add(dragMap2);
+
+            HashMap<String, DragInfo> dragMap3 = new HashMap<>();
+            DragInfo dragInfo3 = new DragInfo();
+            dragInfo3.dragName = "收入";
+            dragMap3.put("dragInfo", dragInfo3);
+            dataSourceList.add(dragMap3);
+
+            HashMap<String, DragInfo> dragMap4 = new HashMap<>();
+            DragInfo dragInfo4 = new DragInfo();
+            dragInfo4.dragName = "转账";
+            dragMap4.put("dragInfo", dragInfo4);
+            dataSourceList.add(dragMap4);
+
+            HashMap<String, DragInfo> dragMap5 = new HashMap<>();
+            DragInfo dragInfo5 = new DragInfo();
+            dragInfo5.dragName = "余额";
+            dragMap5.put("dragInfo", dragInfo5);
+            dataSourceList.add(dragMap5);
+
+            HashMap<String, DragInfo> dragMap6 = new HashMap<>();
+            DragInfo dragInfo6 = new DragInfo();
+            dragInfo6.dragName = "代付";
+            dragMap6.put("dragInfo", dragInfo6);
+            dataSourceList.add(dragMap6);
+
+            HashMap<String, DragInfo> dragMap7 = new HashMap<>();
+            DragInfo dragInfo7 = new DragInfo();
+            dragInfo7.dragName = "报销";
+            dragMap7.put("dragInfo", dragInfo7);
+            dataSourceList.add(dragMap7);
+
+            HashMap<String, DragInfo> dragMap8 = new HashMap<>();
+            DragInfo dragInfo8 = new DragInfo();
+            dragInfo8.dragName = "退款";
+            dragMap8.put("dragInfo", dragInfo8);
+            dataSourceList.add(dragMap8);
+
+            HashMap<String, DragInfo> dragMap9 = new HashMap<>();
+            DragInfo dragInfo9 = new DragInfo();
+            dragInfo9.dragName = "借贷";
+            dragMap9.put("dragInfo", dragInfo9);
+            dataSourceList.add(dragMap9);
 
             DragGridView dragGridView = (DragGridView) root.findViewById(R.id.add_record_drop_dgv);
-            HashMap<String, Object> itemHashMap1 = new HashMap<>();
-            itemHashMap1.put("item_text", "模板");
-            dataSourceList.add(itemHashMap1);
-            HashMap<String, Object> itemHashMap2 = new HashMap<>();
-            itemHashMap2.put("item_text", "支出");
-            dataSourceList.add(itemHashMap2);
-            HashMap<String, Object> itemHashMap3 = new HashMap<>();
-            itemHashMap3.put("item_text", "收入");
-            dataSourceList.add(itemHashMap3);
-            HashMap<String, Object> itemHashMap4 = new HashMap<>();
-            itemHashMap4.put("item_text", "转账");
-            dataSourceList.add(itemHashMap4);
-            HashMap<String, Object> itemHashMap5 = new HashMap<>();
-            itemHashMap5.put("item_text", "余额");
-            dataSourceList.add(itemHashMap5);
-            HashMap<String, Object> itemHashMap6 = new HashMap<>();
-            itemHashMap6.put("item_text", "代付");
-            dataSourceList.add(itemHashMap6);
-            HashMap<String, Object> itemHashMap7 = new HashMap<>();
-            itemHashMap7.put("item_text", "报销");
-            dataSourceList.add(itemHashMap7);
-            HashMap<String, Object> itemHashMap8 = new HashMap<>();
-            itemHashMap8.put("item_text", "退款");
-            dataSourceList.add(itemHashMap8);
-            HashMap<String, Object> itemHashMap9 = new HashMap<>();
-            itemHashMap9.put("item_text", "借贷");
-            dataSourceList.add(itemHashMap9);
-            final SimpleAdapter simpleAdapter = new SimpleAdapter(AddRecordActivity.this, dataSourceList,
-                    R.layout.drag_grid_view_item, new String[]{"item_text"}, new int[]{R.id.item_text});
-            dragGridView.setAdapter(simpleAdapter);
+
+            final DragAdapter dragAdapter = new DragAdapter(AddRecordActivity.this, dataSourceList, mViewPager.getCurrentItem());
+            dragGridView.setAdapter(dragAdapter);
 
             dragGridView.setOnChangeListener(new DragGridView.OnChanageListener() {
                 @Override
                 public void onChange(int form, int to) {
-                    HashMap<String, Object> temp = dataSourceList.get(form);
+                    HashMap<String, DragInfo> temp = dataSourceList.get(form);
                     if (form < to) {
                         for (int i = form; i < to; i++) {
                             Collections.swap(dataSourceList, i, i + 1);
@@ -306,16 +332,24 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                         }
                     }
                     dataSourceList.set(to, temp);
-                    simpleAdapter.notifyDataSetChanged();
+                    dragAdapter.notifyDataSetChanged();
                 }
             });
-            dragGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            dragGridView.setOnTagSelectListener(new DragGridView.OnTagSelectListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    parent.getChildAt(position).setSelected(true);
-                    mViewPager.setCurrentItem(position);
+                public void onClick(int position) {
+                    dataSourceList.get(position).get("dragInfo").isSelect = true;
+                    dragAdapter.notifyDataSetChanged();
+                    dataSourceList.get(position).get("dragInfo").isSelect = false;
                 }
             });
+//            dragGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    parent.getChildAt(position).setSelected(true);
+//                    mViewPager.setCurrentItem(position);
+//                }
+//            });
         }
     }
 

@@ -8,20 +8,25 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.flow.bean.DragInfo;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by luruiqian on 2018/7/6.
  */
 
-public class DragAdapter extends BaseAdapter {
+public class DragAdapter extends BaseAdapter implements View.OnClickListener {
     private Context mContext;
-    private List<String> mDragList;
+    private int mSelectedPosition;
+    private List<HashMap<String, DragInfo>> mDragList;
+    private TextView mDragTv;
 
-    public DragAdapter(Context context, List<String> dragList) {
+    public DragAdapter(Context context, List<HashMap<String, DragInfo>> dataSourceList, int position) {
         mContext = context;
-        mDragList = dragList;
+        mDragList = dataSourceList;
+        mSelectedPosition = position;
     }
 
     @Override
@@ -30,8 +35,8 @@ public class DragAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return mDragList.get(position);
+    public DragInfo getItem(int position) {
+        return mDragList.get(position).get("dragInfo");
     }
 
     @Override
@@ -40,8 +45,8 @@ public class DragAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.drag_grid_view_item, null);
@@ -50,16 +55,39 @@ public class DragAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        bindData(holder, (String) getItem(position));
+        if (position == mSelectedPosition) {
+            getItem(position).isSelect = true;
+            mSelectedPosition = position;
+        }
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getItem(position).isSelect = true;
+                getItem(mSelectedPosition).isSelect = false;
+
+                mSelectedPosition = position;
+            }
+        });
+        bindData(holder, (DragInfo) getItem(position));
         return convertView;
     }
 
-    private void bindData(ViewHolder holder, String item) {
-        holder.mDragTv.setText(item);
+    private void bindData(ViewHolder holder, DragInfo item) {
+        holder.mDragTv.setText(item.dragName);
+        holder.mDragTv.setSelected(item.isSelect);
     }
 
     private void bindView(ViewHolder holder, View convertView) {
         holder.mDragTv = (TextView) convertView.findViewById(R.id.item_text);
+    }
+
+    @Override
+    public void onClick(View v) {
+//        if (position != mSelectedPosition) {
+//            getItem(mSelectedPosition).isSelect = false;
+//            getItem(position).isSelect = true;
+//            mSelectedPosition = position;
+//        }
     }
 
     protected class ViewHolder {

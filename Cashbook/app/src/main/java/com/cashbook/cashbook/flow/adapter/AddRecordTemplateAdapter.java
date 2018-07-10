@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by luruiqian on 2018/6/7.
+ * @author  luruiqian on 2018/6/7.
  */
 
 public class AddRecordTemplateAdapter extends BaseAdapter {

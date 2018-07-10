@@ -110,6 +110,7 @@ public class DragGridView extends GridView {
      * item发生变化回调的接口
      */
     private OnChanageListener onChanageListener;
+    private OnTagSelectListener onTagSelectListener;
 
 
     public DragGridView(Context context) {
@@ -154,6 +155,10 @@ public class DragGridView extends GridView {
      */
     public void setOnChangeListener(OnChanageListener onChanageListener) {
         this.onChanageListener = onChanageListener;
+    }
+
+    public void setOnTagSelectListener(OnTagSelectListener onTagSelectListener) {
+        this.onTagSelectListener = onTagSelectListener;
     }
 
     /**
@@ -249,6 +254,9 @@ public class DragGridView extends GridView {
     public boolean onTouchEvent(MotionEvent ev) {
         if (isDrag && mDragImageView != null) {
             switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    onClickItem();
+                    break;
                 case MotionEvent.ACTION_MOVE:
                     moveX = (int) ev.getX();
                     moveY = (int) ev.getY();
@@ -263,6 +271,9 @@ public class DragGridView extends GridView {
             return true;
         }
         return super.onTouchEvent(ev);
+    }
+
+    private void onClickItem() {
     }
 
 
@@ -401,7 +412,7 @@ public class DragGridView extends GridView {
 
 
     /**
-     * @author xiaanming
+     * @author luruiqian 拖动tag
      */
     public interface OnChanageListener {
 
@@ -414,4 +425,10 @@ public class DragGridView extends GridView {
         public void onChange(int form, int to);
     }
 
+    /**
+     * 点击tag
+     */
+    public interface OnTagSelectListener {
+        public void onClick(int position);
+    }
 }
