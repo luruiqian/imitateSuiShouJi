@@ -254,9 +254,6 @@ public class DragGridView extends GridView {
     public boolean onTouchEvent(MotionEvent ev) {
         if (isDrag && mDragImageView != null) {
             switch (ev.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    onClickItem();
-                    break;
                 case MotionEvent.ACTION_MOVE:
                     moveX = (int) ev.getX();
                     moveY = (int) ev.getY();
@@ -269,11 +266,16 @@ public class DragGridView extends GridView {
                     break;
             }
             return true;
+        } else if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            onClickItem();
         }
         return super.onTouchEvent(ev);
     }
 
     private void onClickItem() {
+        if (onTagSelectListener != null) {
+            onTagSelectListener.onClick(mDragPosition);
+        }
     }
 
 

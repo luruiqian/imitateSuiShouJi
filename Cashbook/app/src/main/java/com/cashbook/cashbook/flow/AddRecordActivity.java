@@ -340,7 +340,6 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                 public void onClick(int position) {
                     dataSourceList.get(position).get("dragInfo").isSelect = true;
                     dragAdapter.notifyDataSetChanged();
-                    dataSourceList.get(position).get("dragInfo").isSelect = false;
                 }
             });
 //            dragGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
