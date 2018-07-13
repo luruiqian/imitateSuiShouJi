@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +14,21 @@ import android.widget.Toast;
 import com.cashbook.cashbook.account.AccountFragment;
 import com.cashbook.cashbook.finance.FinanceFragment;
 import com.cashbook.cashbook.flow.FlowFragment;
+import com.cashbook.cashbook.flow.presenter.FlowPresenter;
+import com.cashbook.cashbook.flow.view.FlowView;
 import com.cashbook.cashbook.load.LoadFragment;
 import com.cashbook.cashbook.more.MoreFragment;
+import com.cashbook.cashbook.mvp.MVPBaseActivity;
 import com.cashbook.cashbook.my.MyFragment;
 
 import java.util.List;
 
 import static android.support.design.widget.TabLayout.MODE_FIXED;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+/**
+ * @author luruiqian
+ */
+public class MainActivity extends MVPBaseActivity<FlowView, FlowPresenter> implements TabLayout.OnTabSelectedListener {
     private FragmentTransaction mTransaction;
     private FragmentManager mFragmentManager;
     private TabLayout mBottomTabLayout;
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         initTab();
         initFragment();
         initListener();
+        mPresenter.initData(MainActivity.this);
     }
 
     private void initListener() {
@@ -213,4 +219,5 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
 }
