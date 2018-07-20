@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="长按进行排序" />
 
-    <com.cashbook.cashbook.View.DragGridView
+    <com.cashbook.cashbook.view.DragGridView
         android:id="@+id/add_record_drop_dgv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

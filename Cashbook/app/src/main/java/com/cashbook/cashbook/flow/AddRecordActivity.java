@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
-import com.cashbook.cashbook.View.DragGridView;
+import com.cashbook.cashbook.view.DragGridView;
 import com.cashbook.cashbook.database.CashbookDatabaseManager;
 import com.cashbook.cashbook.database.CashbookInfo;
 import com.cashbook.cashbook.database.CashbookSQLiteOpenHelper;
