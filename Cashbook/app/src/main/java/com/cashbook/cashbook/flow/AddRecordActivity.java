@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -17,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
-import com.cashbook.cashbook.view.DragGridView;
 import com.cashbook.cashbook.database.CashbookDatabaseManager;
 import com.cashbook.cashbook.database.CashbookInfo;
 import com.cashbook.cashbook.database.CashbookSQLiteOpenHelper;
@@ -34,6 +34,8 @@ import com.cashbook.cashbook.flow.fragment.AddRecordTemplateFragment;
 import com.cashbook.cashbook.flow.fragment.AddRecordToLoanFragment;
 import com.cashbook.cashbook.flow.fragment.AddRecordTransferAccountsFragment;
 import com.cashbook.cashbook.flow.fragment.AddRecordZhichuFragment;
+import com.cashbook.cashbook.view.DragFloatActionBall;
+import com.cashbook.cashbook.view.DragGridView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,6 +52,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     private TextView mRecordOneMore;
     private ImageView mBackIv;
     private LinearLayout mBottomSaveTemplateLy;
+    private DragFloatActionBall mDragFloatActionBall;
 
     private List<String> mTabIndicators;
     private List<Fragment> mRecordFragments;
@@ -216,16 +219,23 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        mDragFloatActionBall.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
     private void initView() {
         mBackIv = (ImageView) findViewById(R.id.add_record_iv);
         mViewPager = (ViewPager) findViewById(R.id.add_record_vp);
         mBottonSaveTv = (TextView) findViewById(R.id.add_save_tv);
         mSaveTv = (TextView) findViewById(R.id.add_record_save_tv);
         mTabLayout = (TabLayout) findViewById(R.id.add_record_tab);
-        mDropRl = (RelativeLayout) findViewById(R.id.add_record_drop_rl);
         mRecordOneMore = (TextView) findViewById(R.id.add_one_more_tv);
+        mDropRl = (RelativeLayout) findViewById(R.id.add_record_drop_rl);
         mSaveTemplete = (TextView) findViewById(R.id.add_save_template_tv);
         mBottomSaveTemplateLy = (LinearLayout) findViewById(R.id.add_record_bottom_ly);
+        mDragFloatActionBall = (DragFloatActionBall) findViewById(R.id.add_record_float_ball);
     }
 
     @Override

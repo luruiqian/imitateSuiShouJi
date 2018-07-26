@@ -1,5 +1,8 @@
 package com.cashbook.cashbook.adapter;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.util.List;
 
 /**
@@ -37,6 +40,11 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 	@Override
 	public int indexOf(Object o){
 		return items.indexOf(o);
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		return null;
 	}
 
 }

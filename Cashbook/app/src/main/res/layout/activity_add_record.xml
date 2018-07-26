@@ -119,4 +119,8 @@
         android:layout_above="@id/add_record_bottom_ly"
         android:layout_below="@id/add_record_title" />
 
+    <com.cashbook.cashbook.view.DragFloatActionBall
+        android:id="@+id/add_record_float_ball"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
 </RelativeLayout>

@@ -19,6 +19,7 @@ import java.util.List;
 public class OptionsPickerView<T> extends BasePickerView implements View.OnClickListener {
 
     private WheelOptions wheelOptions;
+    private Context mContext;
 
     private static final String TAG_SUBMIT = "submit";
     private static final String TAG_CANCEL = "cancel";
@@ -26,8 +27,9 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
 
     public OptionsPickerView(PickerOptions pickerOptions) {
         super(pickerOptions.context);
+        mContext = pickerOptions.context;
         mPickerOptions = pickerOptions;
-        initView(pickerOptions.context);
+        initView(mContext);
     }
 
     private void initView(Context context) {
@@ -74,7 +76,7 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         final LinearLayout optionsPicker = (LinearLayout) findViewById(R.id.optionspicker);
         optionsPicker.setBackgroundColor(mPickerOptions.bgColorWheel);
 
-        wheelOptions = new WheelOptions(optionsPicker, mPickerOptions.isRestoreItem);
+        wheelOptions = new WheelOptions(optionsPicker, mPickerOptions.isRestoreItem, mContext);
         if (mPickerOptions.optionsSelectChangeListener != null) {
             wheelOptions.setOptionsSelectChangeListener(mPickerOptions.optionsSelectChangeListener);
         }

@@ -75,11 +75,11 @@ public class FlowRecordAdapter extends BaseAdapter {
         holder.flowPayTv = (TextView) convertView.findViewById(R.id.adapter_flow_pay_tv);
     }
 
-    public class ViewHolder {
-        public ImageView flowAccountImage;
-        public TextView flowAccountTimeTv;
-        public TextView flowAccountSubTv;
-        public TextView flowIncomeTv;
-        public TextView flowPayTv;
+    protected class ViewHolder {
+        protected ImageView flowAccountImage;
+        protected TextView flowAccountTimeTv;
+        protected TextView flowAccountSubTv;
+        protected TextView flowIncomeTv;
+        protected TextView flowPayTv;
     }
 }

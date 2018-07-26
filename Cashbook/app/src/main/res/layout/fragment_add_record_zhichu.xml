@@ -4,10 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.cashbook.cashbook.flow.fragment.AddRecordTemplateFragment">
 
-    <TextView
-        android:id="@+id/add_record_tab_tv"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/add_record_out_pay_ry"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:layout_height="wrap_content" />
 </FrameLayout>

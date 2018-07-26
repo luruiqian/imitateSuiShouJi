@@ -1,16 +1,20 @@
 package com.cashbook.cashbook.view;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
 
 import com.cashbook.cashbook.R;
 import com.cashbook.cashbook.adapter.ArrayWheelAdapter;
+import com.cashbook.cashbook.adapter.Item1ArrayWheelAdapter;
 import com.cashbook.cashbook.listener.OnItemSelectedListener;
 import com.cashbook.cashbook.listener.OnOptionsSelectChangeListener;
 
 import java.util.List;
 
 public class WheelOptions<T> {
+    private Context mContext;
+
     private View view;
     private WheelView wv_option1;
     private WheelView wv_option2;
@@ -45,10 +49,11 @@ public class WheelOptions<T> {
         this.view = view;
     }
 
-    public WheelOptions(View view, boolean isRestoreItem) {
+    public WheelOptions(View view, boolean isRestoreItem, Context context) {
         super();
-        this.isRestoreItem = isRestoreItem;
         this.view = view;
+        this.mContext = context;
+        this.isRestoreItem = isRestoreItem;
         // 初始化时显示的数据
         wv_option1 = (WheelView) view.findViewById(R.id.options1);
         wv_option2 = (WheelView) view.findViewById(R.id.options2);
@@ -68,7 +73,7 @@ public class WheelOptions<T> {
         wv_option1.setCurrentItem(0);// 初始化时显示的数据
         // 选项2
         if (mOptions2Items != null) {
-            wv_option2.setAdapter(new ArrayWheelAdapter(mOptions2Items.get(0)));// 设置显示数据
+            wv_option2.setAdapter(new Item1ArrayWheelAdapter(mOptions2Items.get(0),mContext));// 设置显示数据
         }
         wv_option2.setCurrentItem(wv_option2.getCurrentItem());// 初始化时显示的数据
         // 选项3
