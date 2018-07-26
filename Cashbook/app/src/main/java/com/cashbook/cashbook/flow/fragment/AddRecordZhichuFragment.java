@@ -1,6 +1,10 @@
 package com.cashbook.cashbook.flow.fragment;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.cashbook.cashbook.R;
 import com.cashbook.cashbook.adapter.AddRecordOutPayAdapter;
+import com.cashbook.cashbook.view.StateLine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +24,13 @@ import java.util.Random;
 
 public class AddRecordZhichuFragment extends Fragment {
     private static String pageName;
+    private Paint mLinePaint;
 
+    private StateLine mStateLine;
     private RecyclerView mAddRecordOutPayRy;
     private List<String> mList = new ArrayList<>();
 
+    private AddRecordOutPayAdapter addRecordOutPayAdapter;
     private static AddRecordZhichuFragment mTemplateFragment;
 
     public AddRecordZhichuFragment() {
@@ -68,9 +76,27 @@ public class AddRecordZhichuFragment extends Fragment {
         //设置
         mAddRecordOutPayRy.setLayoutManager(manager);
         //实例化适配器
-        AddRecordOutPayAdapter addRecordOutPayAdapter = new AddRecordOutPayAdapter(getActivity(), mList);
+        addRecordOutPayAdapter = new AddRecordOutPayAdapter(getActivity(), mList);
         //设置适配器
         mAddRecordOutPayRy.setAdapter(addRecordOutPayAdapter);
+        drawLine();
+    }
+
+    private void drawLine() {
+        Path mPath = new Path();
+        mLinePaint = new Paint();
+        Canvas canvas = new Canvas();
+        mLinePaint.setStrokeWidth(2);
+        mLinePaint.setColor(Color.RED);
+        View view = mAddRecordOutPayRy.getChildAt(0);
+//        RectF mRectF = new RectF(0, 10, 500, 500);
+//        mPath.arcTo(mRectF, 0, 90);
+//        mPath.cubicTo(0, 10, 200,200,500, 500);
+//        canvas.drawPath(mPath, mLinePaint);
+
+//        canvas.translate(0, 55);
+        canvas.drawLine(0, 10, 500, 500, mLinePaint);
+        canvas.save();
     }
 
     private void initData() {
@@ -92,8 +118,8 @@ public class AddRecordZhichuFragment extends Fragment {
 
     private void initView(View view) {
         mAddRecordOutPayRy = (RecyclerView) view.findViewById(R.id.add_record_out_pay_ry);
-        //设置不可滑动
-        mAddRecordOutPayRy.setNestedScrollingEnabled(false);
+//        mStateLine = (StateLine) view.findViewById(R.id.add_record_out_pay_sl);
+//        mStateLine = new StateLine(getActivity());
     }
 
     @Override
