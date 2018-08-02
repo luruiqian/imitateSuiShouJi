@@ -17,16 +17,25 @@ public class DragFloatActionBall extends FloatingActionButton {
     private int parentHeight;
     private int parentWidth;
 
+    private Context mContext;
+
     public DragFloatActionBall(Context context) {
         super(context);
+        init(context);
     }
 
     public DragFloatActionBall(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public DragFloatActionBall(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
+    }
+
+    private void init(Context context) {
+        mContext = context;
     }
 
     private int lastX;
@@ -42,7 +51,6 @@ public class DragFloatActionBall extends FloatingActionButton {
             case MotionEvent.ACTION_DOWN:
                 setPressed(true);
                 isDrag = false;
-                getParent().requestDisallowInterceptTouchEvent(true);
                 lastX = rawX;
                 lastY = rawY;
                 ViewGroup parent;
@@ -51,8 +59,8 @@ public class DragFloatActionBall extends FloatingActionButton {
                     parentHeight = parent.getHeight();
                     parentWidth = parent.getWidth();
                 }
-//                return true;
-                break;
+                getParent().requestDisallowInterceptTouchEvent(false);
+                return true;
             case MotionEvent.ACTION_MOVE:
                 if (parentHeight <= 0 || parentWidth == 0) {
                     isDrag = false;
@@ -78,7 +86,7 @@ public class DragFloatActionBall extends FloatingActionButton {
                 lastX = rawX;
                 lastY = rawY;
                 Log.i("aa", "isDrag=" + isDrag + "getX=" + getX() + ";getY=" + getY() + ";parentWidth=" + parentWidth);
-                break;
+                return true;
             case MotionEvent.ACTION_UP:
                 if (!isNotDrag()) {
                     //恢复按压效果
@@ -98,6 +106,8 @@ public class DragFloatActionBall extends FloatingActionButton {
                         oa.start();
                     }
                 }
+                return true;
+            default:
                 break;
         }
         //如果是拖拽则消s耗事件，否则正常传递即可。

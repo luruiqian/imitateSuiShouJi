@@ -74,12 +74,12 @@ public class AddRecordZhichuFragment extends Fragment {
 
         };
         //设置
-        mAddRecordOutPayRy.setLayoutManager(manager);
+//        mAddRecordOutPayRy.setLayoutManager(manager);
         //实例化适配器
         addRecordOutPayAdapter = new AddRecordOutPayAdapter(getActivity(), mList);
         //设置适配器
-        mAddRecordOutPayRy.setAdapter(addRecordOutPayAdapter);
-        drawLine();
+//        mAddRecordOutPayRy.setAdapter(addRecordOutPayAdapter);
+//        drawLine();
     }
 
     private void drawLine() {
@@ -117,7 +117,7 @@ public class AddRecordZhichuFragment extends Fragment {
     }
 
     private void initView(View view) {
-        mAddRecordOutPayRy = (RecyclerView) view.findViewById(R.id.add_record_out_pay_ry);
+//        mAddRecordOutPayRy = (RecyclerView) view.findViewById(R.id.add_record_out_pay_ry);
 //        mStateLine = (StateLine) view.findViewById(R.id.add_record_out_pay_sl);
 //        mStateLine = new StateLine(getActivity());
     }

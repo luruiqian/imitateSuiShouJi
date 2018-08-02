@@ -4,14 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.cashbook.cashbook.flow.fragment.AddRecordTemplateFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/add_record_out_pay_ry"
+    <com.cashbook.cashbook.view.CircleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <!--<com.cashbook.cashbook.view.StateLine-->
-        <!--android:id="@+id/add_record_out_pay_sl"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
 
 </FrameLayout>

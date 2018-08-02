@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -217,12 +216,6 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         mViewPager.setCurrentItem(1);
         mTabLayout.getTabAt(1).select();
 
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        mDragFloatActionBall.onTouchEvent(ev);
-        return super.dispatchTouchEvent(ev);
     }
 
     private void initView() {
