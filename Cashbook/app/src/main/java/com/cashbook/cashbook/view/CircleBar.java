@@ -121,7 +121,7 @@ public class CircleBar extends View {
                 , textDesPaint);
         //详情的描述
 //        StaticLayout sl = new StaticLayout(mTextDes, textPaint, tempTextDes.length() * dip2px(getContext(),30), Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
-        StaticLayout sl = new StaticLayout(mTextDes, textPaint, tempTextDes.length() * dip2px(getContext(),20 + 15), Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
+        StaticLayout sl = new StaticLayout(mTextDes, textPaint, tempTextDes.length() * sp2px(getContext(), 20), Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
         canvas.save();
         canvas.translate((mColorWheelRectangle.centerX())
                         - (textPaint.measureText(tempTextDes) / 2),
@@ -198,4 +198,11 @@ public class CircleBar extends View {
         return (int) (dipValue * scale + 0.5f);
     }
 
+    /**
+     * sp转换成px
+     */
+    public int sp2px(Context context, float spValue) {
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
+    }
 }

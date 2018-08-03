@@ -92,18 +92,25 @@ public class DragFloatActionBall extends FloatingActionButton {
                     //恢复按压效果
                     setPressed(false);
                     //Log.i("getX="+getX()+"；screenWidthHalf="+screenWidthHalf);
-                    if (rawX >= parentWidth / 2) {
+                    if (rawX >= parentWidth / 2 && rawX < parentWidth - 10) {
                         //靠右吸附
                         animate().setInterpolator(new DecelerateInterpolator())
                                 .setDuration(500)
                                 .xBy(parentWidth - getWidth() - getX())
                                 .start();
-                    } else {
-                        //靠左吸附
-                        ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), 0);
-                        oa.setInterpolator(new DecelerateInterpolator());
-                        oa.setDuration(500);
-                        oa.start();
+                    } else if (rawX >= parentWidth - 10) {
+                        //向右消失的动画
+
+                    } else if (rawX <= 10) {
+                        //向左消失的动画
+                    } else if (rawX > 10 && rawX < parentWidth / 2) {
+                        {
+                            //靠左吸附
+                            ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), 0);
+                            oa.setInterpolator(new DecelerateInterpolator());
+                            oa.setDuration(500);
+                            oa.start();
+                        }
                     }
                 }
                 return true;
@@ -117,6 +124,10 @@ public class DragFloatActionBall extends FloatingActionButton {
     private boolean isNotDrag() {
         return !isDrag && (getX() == 0
                 || (getX() == parentWidth - getWidth()));
+    }
+
+    public void hideAnimator() {
+//        ValueAnimator animator =
     }
 
 }
