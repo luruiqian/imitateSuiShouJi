@@ -1,12 +1,15 @@
 package com.cashbook.cashbook.view;
 
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 /**
@@ -16,6 +19,7 @@ import android.view.animation.DecelerateInterpolator;
 public class DragFloatActionBall extends FloatingActionButton {
     private int parentHeight;
     private int parentWidth;
+    private int mBallStopSide = 0;//小球停靠边 0：左  1：右
 
     private Context mContext;
 
@@ -36,6 +40,13 @@ public class DragFloatActionBall extends FloatingActionButton {
 
     private void init(Context context) {
         mContext = context;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                autoHideAnim();
+
+            }
+        }, 1500);
     }
 
     private int lastX;
@@ -45,7 +56,7 @@ public class DragFloatActionBall extends FloatingActionButton {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int rawX = (int) event.getRawX();
+        final int rawX = (int) event.getRawX();
         int rawY = (int) event.getRawY();
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
@@ -98,21 +109,26 @@ public class DragFloatActionBall extends FloatingActionButton {
                                 .setDuration(500)
                                 .xBy(parentWidth - getWidth() - getX())
                                 .start();
+                        mBallStopSide = 1;
                     } else if (rawX >= parentWidth - 10) {
-                        //向右消失的动画
-
+                        rightHideHalf();
                     } else if (rawX <= 10) {
-                        //向左消失的动画
+                        leftHideHalf();
                     } else if (rawX > 10 && rawX < parentWidth / 2) {
-                        {
-                            //靠左吸附
-                            ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), 0);
-                            oa.setInterpolator(new DecelerateInterpolator());
-                            oa.setDuration(500);
-                            oa.start();
-                        }
+                        //靠左吸附
+                        ObjectAnimator oa = ObjectAnimator.ofFloat(this, "translationX", getX(), 0);
+                        oa.setInterpolator(new DecelerateInterpolator());
+                        oa.setDuration(500);
+                        oa.start();
+                        mBallStopSide = 0;
                     }
                 }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        autoHideAnim();
+                    }
+                }, 1000);
                 return true;
             default:
                 break;
@@ -121,13 +137,47 @@ public class DragFloatActionBall extends FloatingActionButton {
         return !isNotDrag() || super.onTouchEvent(event);
     }
 
+    private void autoHideAnim() {
+        if (mBallStopSide == 1) {
+            rightHideHalf();
+        } else if (mBallStopSide == 0) {
+            leftHideHalf();
+        }
+    }
+
     private boolean isNotDrag() {
         return !isDrag && (getX() == 0
                 || (getX() == parentWidth - getWidth()));
     }
 
-    public void hideAnimator() {
-//        ValueAnimator animator =
+    /**
+     * 向右消失的动画
+     */
+    public void rightHideHalf() {
+        ObjectAnimator oa1 = ObjectAnimator.ofFloat(this, "translationX", getX(), parentWidth - getWidth() / 2);
+        ObjectAnimator oa2 = ObjectAnimator.ofFloat(this, "alpha", 1, 0.5f);
+
+        AnimatorSet aniSet = new AnimatorSet();
+        aniSet.setDuration(300);
+        aniSet.setInterpolator(new BounceInterpolator());
+        aniSet.playTogether(oa1,
+                oa2);// 同时启动2个动画
+        aniSet.start();
+    }
+
+    /**
+     * 向左消失的动画
+     */
+    public void leftHideHalf() {
+        ObjectAnimator oa1 = ObjectAnimator.ofFloat(this, "translationX", getX(), -getWidth() / 2);
+        ObjectAnimator oa2 = ObjectAnimator.ofFloat(this, "alpha", 1, 0.5f);
+
+        AnimatorSet aniSet = new AnimatorSet();
+        aniSet.setDuration(300);
+        aniSet.setInterpolator(new BounceInterpolator());
+        aniSet.playTogether(oa1,
+                oa2);// 同时启动2个动画
+        aniSet.start();
     }
 
 }

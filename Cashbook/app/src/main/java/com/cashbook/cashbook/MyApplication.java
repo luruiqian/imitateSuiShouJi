@@ -5,6 +5,8 @@ import android.app.Application;
 
 import java.util.ArrayList;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by luruiqian on 2018/3/22.
  */
@@ -20,6 +22,13 @@ public class MyApplication extends Application {
             activityList = new ArrayList<>();
         }
         return myApplication;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     //添加到数组中

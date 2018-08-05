@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import com.cashbook.cashbook.mvp.MVPBaseActivity;
 import com.cashbook.cashbook.my.MyFragment;
 
 import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 
 import static android.support.design.widget.TabLayout.MODE_FIXED;
 
@@ -48,6 +51,8 @@ public class MainActivity extends MVPBaseActivity<FlowView, FlowPresenter> imple
         initFragment();
         initListener();
         mPresenter.initData(MainActivity.this);
+        Log.i("hah",JPushInterface.getRegistrationID(MainActivity.this));
+
     }
 
     private void initListener() {

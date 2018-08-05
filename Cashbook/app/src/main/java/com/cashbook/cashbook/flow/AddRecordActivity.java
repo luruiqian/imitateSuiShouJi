@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -234,7 +235,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.add_save_tv) {
-
+            Log.e("getx","66666666");
         } else if (v.getId() == R.id.add_save_template_tv) {
 
         } else if (v.getId() == R.id.add_one_more_tv) {
