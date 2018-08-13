@@ -24,6 +24,7 @@ import com.cashbook.cashbook.my.MyFragment;
 
 import java.util.List;
 
+import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 
 import static android.support.design.widget.TabLayout.MODE_FIXED;
@@ -51,8 +52,19 @@ public class MainActivity extends MVPBaseActivity<FlowView, FlowPresenter> imple
         initFragment();
         initListener();
         mPresenter.initData(MainActivity.this);
-        Log.i("hah",JPushInterface.getRegistrationID(MainActivity.this));
-
+        Log.i("hah", JPushInterface.getRegistrationID(MainActivity.this));
+        CustomPushNotificationBuilder builder = new
+                CustomPushNotificationBuilder(MainActivity.this,
+                R.layout.adapter_account_item,
+                R.id.icon,
+                R.id.title,
+                R.id.text);
+        // 指定定制的 Notification Layout
+        builder.statusBarDrawable = R.drawable.flow_record_icon;
+        // 指定最顶层状态栏小图标
+        builder.layoutIconDrawable = R.drawable.flow_record_icon;
+        // 指定下拉状态栏时显示的通知图标
+        JPushInterface.setPushNotificationBuilder(2, builder);
     }
 
     private void initListener() {
