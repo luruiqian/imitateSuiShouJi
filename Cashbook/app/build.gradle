@@ -1,8 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "27.0.1"
+    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.cashbook.cashbook"
         minSdkVersion 14
@@ -46,4 +50,9 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.1.2"
+}
+repositories {
+    //修改成国内阿里云的maven地址，否则某些地方下载不下来
+    maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
 }
