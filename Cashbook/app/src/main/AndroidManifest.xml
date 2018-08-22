@@ -12,7 +12,7 @@
         <activity
             android:name=".activity.LauncherActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoTitleTheme">
+            android:theme="@style/AppSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

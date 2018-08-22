@@ -33,4 +33,9 @@
         <item name="android:windowEnterAnimation">@anim/pickerview_dialog_scale_in</item>
         <item name="android:windowExitAnimation">@anim/pickerview_dialog_scale_out</item>
     </style>
+
+    <style name="AppSplash" parent="android:Theme">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>
