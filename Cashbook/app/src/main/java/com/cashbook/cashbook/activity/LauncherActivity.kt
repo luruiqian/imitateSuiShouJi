@@ -13,17 +13,35 @@ import android.widget.TextView
 import com.cashbook.cashbook.MainActivity
 import com.cashbook.cashbook.R
 
-class LauncherActivity : Activity(), View.OnClickListener {
+class LauncherActivity : Activity() {
     private val LAUNCHER_AD_TIME_COUNT_DOWN: Long = 3000
     private val LAUNCH_DELAY = 1
     private var mTimeCount = 3
 
-    private lateinit var mHandler: Handler
+
     private lateinit var mThread: Thread
 
     private var mAvTimeTv: TextView? = null
     private var mLaunchImage: ImageView? = null
     private var mCountDownTimer: CountDownTimer? = null
+
+    private var mHandler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            if (msg?.what == LAUNCH_DELAY) {
+                if (isFirstRun()) {
+                    //首次打开程序，进入引导页
+                    var intent = Intent()
+                    intent.setClass(this@LauncherActivity, GuideActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    //不是首次打开程序，进入模拟广告页
+                    startTimer(LAUNCHER_AD_TIME_COUNT_DOWN)
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,38 +52,22 @@ class LauncherActivity : Activity(), View.OnClickListener {
         jumpGuide()
     }
 
-    private fun initListener() {
-        mAvTimeTv?.setOnClickListener { this }
-    }
-
-    override fun onClick(v: View?) {
-        if (v?.id == R.id.launcher_av_time_tv) jumpMainActivity()
-    }
-
     private fun initView() {
         mAvTimeTv = findViewById(R.id.launcher_av_time_tv) as TextView?
         mLaunchImage = findViewById(R.id.launcher_av_iv) as ImageView?
+    }
+
+    private fun initListener() {
+        mAvTimeTv?.setOnClickListener {
+            cancelTimer()
+            jumpMainActivity()
+        }
     }
 
     /**
      * 根据是否首次运行程序判断跳转引导页还是首页
      */
     private fun jumpGuide() {
-        mHandler = object : Handler() {
-            override fun handleMessage(msg: Message?) {
-                super.handleMessage(msg)
-                if (msg?.what == LAUNCH_DELAY) {
-                    if (isFirstRun()) {
-                        var intent = Intent()
-                        intent.setClass(this@LauncherActivity, GuideActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        startTimer(LAUNCHER_AD_TIME_COUNT_DOWN)
-                    }
-
-                }
-            }
-        }
         mThread = object : Thread() {
             override fun run() {
                 super.run()
