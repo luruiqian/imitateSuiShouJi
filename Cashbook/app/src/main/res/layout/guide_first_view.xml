@@ -7,5 +7,7 @@
     <ImageView
         android:id="@+id/guide_first_iv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:src="@drawable/user_lead_xn_img1"
+        android:scaleType="fitXY"/>
 </LinearLayout>

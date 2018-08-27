@@ -22,7 +22,7 @@ class LauncherActivity : Activity() {
     private var mLaunchImage: ImageView? = null
 
     private lateinit var mThread: Thread
-    private lateinit var mCountDownTimer: CountDownTimer
+    private var mCountDownTimer: CountDownTimer ?= null
 
     private var mHandler: Handler = object : Handler() {
         override fun handleMessage(msg: Message?) {
@@ -109,12 +109,12 @@ class LauncherActivity : Activity() {
         }
         // 如果倒计时不为空，则先取消之前倒计时
         cancelTimer()
-        mCountDownTimer.start()
+        mCountDownTimer?.start()
     }
 
     private fun cancelTimer() {
         if (mCountDownTimer != null) {
-            mCountDownTimer.cancel()
+            mCountDownTimer?.cancel()
         }
     }
 
