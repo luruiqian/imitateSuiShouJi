@@ -36,11 +36,15 @@ class GuideActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     private fun initListener() {
         //点击立即体验按钮，跳转首页
         mExperienceIv?.setOnClickListener {
-            var intent = Intent()
-            intent.setClass(this@GuideActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            jumpMainActivity()
         }
+    }
+
+    private fun jumpMainActivity() {
+        var intent = Intent()
+        intent.setClass(this@GuideActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun initView() {
@@ -76,6 +80,13 @@ class GuideActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     }
 
     override fun onPageScrollStateChanged(state: Int) {
+        when (state) {
+            ViewPager.SCROLL_STATE_IDLE -> {
+                if (mGuideVp.currentItem == mGuideVp.adapter.count - 1) {
+                    jumpMainActivity()
+                }
+            }
+        }
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
