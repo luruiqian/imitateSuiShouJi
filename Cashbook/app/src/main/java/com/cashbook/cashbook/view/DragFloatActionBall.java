@@ -12,14 +12,17 @@ import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
+import com.bumptech.glide.Glide;
+
 /**
- * Created by luruiqian on 2018/7/25.
+ * @author  luruiqian on 2018/7/25.
  */
 
 public class DragFloatActionBall extends FloatingActionButton {
     private int parentHeight;
     private int parentWidth;
-    private int mBallStopSide = 0;//小球停靠边 0：左  1：右
+    //小球停靠边 0：左  1：右
+    private int mBallStopSide = 0;
 
     private Context mContext;
 
@@ -40,13 +43,18 @@ public class DragFloatActionBall extends FloatingActionButton {
 
     private void init(Context context) {
         mContext = context;
+        this.setScaleType(ScaleType.CENTER);
+        setImageUrl();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 autoHideAnim();
-
             }
         }, 1500);
+    }
+
+    private void setImageUrl() {
+        Glide.with(mContext).load("http://img10.gomein.net.cn/image/prodimg/gicon/cat10000049.png").into(this);
     }
 
     private int lastX;
@@ -96,13 +104,15 @@ public class DragFloatActionBall extends FloatingActionButton {
                 setY(y);
                 lastX = rawX;
                 lastY = rawY;
+                if (x > 0 && x < parentWidth - getWidth()) {
+                    this.setAlpha(1.0f);
+                }
                 Log.i("aa", "isDrag=" + isDrag + "getX=" + getX() + ";getY=" + getY() + ";parentWidth=" + parentWidth);
                 return true;
             case MotionEvent.ACTION_UP:
                 if (!isNotDrag()) {
                     //恢复按压效果
                     setPressed(false);
-                    //Log.i("getX="+getX()+"；screenWidthHalf="+screenWidthHalf);
                     if (rawX >= parentWidth / 2 && rawX < parentWidth - 10) {
                         //靠右吸附
                         animate().setInterpolator(new DecelerateInterpolator())
@@ -178,6 +188,11 @@ public class DragFloatActionBall extends FloatingActionButton {
         aniSet.playTogether(oa1,
                 oa2);// 同时启动2个动画
         aniSet.start();
+    }
+
+    private void recoverLight() {
+        ObjectAnimator oa = ObjectAnimator.ofFloat(this, "alpha", 0.5f, 1);
+        oa.start();
     }
 
 }
