@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cashbook.cashbook">
 
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -22,15 +25,11 @@
         <activity
             android:name=".activity.GuideActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoTitleTheme">
-
-        </activity>
+            android:theme="@style/NoTitleTheme"></activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoTitleTheme">
-
-        </activity>
+            android:theme="@style/NoTitleTheme"></activity>
         <activity
             android:name=".flow.AddRecordActivity"
             android:screenOrientation="portrait"
@@ -51,6 +50,8 @@
                 <category android:name="com.cashbook.cashbook" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activity.FingerPrintActivity"></activity>
     </application>
 
 </manifest>
