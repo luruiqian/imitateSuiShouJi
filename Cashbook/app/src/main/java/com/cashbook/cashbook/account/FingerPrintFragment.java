@@ -16,8 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cashbook.cashbook.MainActivity;
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.activity.FingerPrintActivity;
 
 import javax.crypto.Cipher;
 
@@ -32,7 +32,7 @@ public class FingerPrintFragment extends DialogFragment implements View.OnClickL
     private FingerprintManager fingerprintManager;
     private CancellationSignal mCancellationSignal;
 
-    private MainActivity mActivity;
+    private FingerPrintActivity mActivity;
 
 
     /**
@@ -45,6 +45,7 @@ public class FingerPrintFragment extends DialogFragment implements View.OnClickL
         super.onCreate(savedInstanceState);
         fingerprintManager = getContext().getSystemService(FingerprintManager.class);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_Dialog);
+        show(getFragmentManager(),"");
     }
 
     @Override
@@ -59,7 +60,7 @@ public class FingerPrintFragment extends DialogFragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         initListener();
-        errorMsg = view.findViewById(R.id.error_msg);
+        errorMsg = (TextView) view.findViewById(R.id.error_msg);
         TextView cancel = (TextView) view.findViewById(R.id.finger_print_cancel_tv);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +93,7 @@ public class FingerPrintFragment extends DialogFragment implements View.OnClickL
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (MainActivity) getActivity();
+        mActivity = (FingerPrintActivity) getActivity();
     }
 
     @Override
