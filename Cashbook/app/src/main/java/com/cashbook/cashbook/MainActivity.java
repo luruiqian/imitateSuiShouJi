@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.cashbook.cashbook.account.FingerPrintFragment;
+import com.cashbook.cashbook.account.AccountFragment;
 import com.cashbook.cashbook.finance.FinanceFragment;
 import com.cashbook.cashbook.flow.FlowFragment;
 import com.cashbook.cashbook.flow.presenter.FlowPresenter;
@@ -211,7 +211,7 @@ public class MainActivity extends MVPBaseActivity<FlowView, FlowPresenter> imple
                 fragment = new FlowFragment();
                 break;
             case 2:
-                fragment = new FingerPrintFragment();
+                fragment = new AccountFragment();
                 break;
             case 3:
                 fragment = new LoadFragment();

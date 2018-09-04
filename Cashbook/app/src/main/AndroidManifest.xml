@@ -25,11 +25,11 @@
         <activity
             android:name=".activity.GuideActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoTitleTheme"></activity>
+            android:theme="@style/NoTitleTheme" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoTitleTheme"></activity>
+            android:theme="@style/NoTitleTheme" />
         <activity
             android:name=".flow.AddRecordActivity"
             android:screenOrientation="portrait"
@@ -51,7 +51,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.FingerPrintActivity"></activity>
+        <activity
+            android:name=".activity.FingerPrintActivity"
+            android:label="@string/title_activity_finger_print"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.FingerResultActivity"></activity>
     </application>
 
 </manifest>
