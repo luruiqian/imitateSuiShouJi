@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApplication"
@@ -53,7 +54,6 @@
 
         <activity
             android:name=".activity.FingerPrintActivity"
-            android:label="@string/title_activity_finger_print"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.FingerResultActivity"></activity>
     </application>

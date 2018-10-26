@@ -52,6 +52,11 @@ dependencies {
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.2'
     compile 'com.github.bumptech.glide:glide:3.6.0'
     testCompile 'junit:junit:4.12'
+    // Retrofit库
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    // Okhttp库
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 }
 repositories {
     //修改成国内阿里云的maven地址，否则某些地方下载不下来
