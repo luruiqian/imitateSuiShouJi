@@ -1,13 +1,11 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.cashbook.cashbook.flow.fragment.AddRecordTemplateFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/add_record_tab_tv"
+    <ImageView
+        android:id="@+id/add_record_transaccount_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:src="@drawable/av"
+        />
+</LinearLayout>
