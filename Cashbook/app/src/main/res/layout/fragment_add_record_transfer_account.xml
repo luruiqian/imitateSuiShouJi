@@ -2,10 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/add_record_transaccount_iv"
+    <com.cashbook.cashbook.view.SketchView
+        android:id="@+id/add_record_trans_account_sv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/av"
-        />
+        android:layout_height="match_parent" />
 </LinearLayout>

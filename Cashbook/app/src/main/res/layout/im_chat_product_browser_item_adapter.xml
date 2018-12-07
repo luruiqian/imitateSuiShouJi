@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/im_chat_product_browse_item_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="14dp"
+    android:paddingTop="10dp"
+    android:paddingRight="14dp"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:id="@+id/im_chat_product_browse_image_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <!--<com.gome.ecmall.frame.image.FrescoDraweeView-->
+            <!--android:id="@+id/im_chat_product_browse_image"-->
+            <!--style="@style/fresco_grey_little_fitxy"-->
+            <!--android:layout_width="75dp"-->
+            <!--android:layout_height="75dp" />-->
+
+
+        <ImageView
+            android:id="@+id/im_chat_product_browse_no_goods"
+            style="@style/fresco_grey_little_fitxy"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/im_no_goods"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/im_chat_product_browse_image_rl"
+        android:layout_alignBottom="@id/im_chat_product_browse_image_rl"
+        android:layout_marginLeft="11dp"
+        android:layout_toRightOf="@id/im_chat_product_browse_image_rl">
+
+        <TextView
+            android:id="@+id/im_chat_product_browse_item_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:maxLines="2"
+            android:textColor="@color/im_bottom_popup_window_item_text_default_color"
+            android:textSize="13sp"
+            tools:text="巴拉巴拉吧" />
+
+        <TextView
+            android:id="@+id/im_chat_product_browse_item_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/im_chat_product_browse_item_name_tv"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:textColor="@color/im_color_order_price"
+            android:textSize="14sp"
+            tools:text="8888.88" />
+
+    </RelativeLayout>
+</RelativeLayout>

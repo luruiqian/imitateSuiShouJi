@@ -10,23 +10,23 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.view.SketchView;
 
-public class AddRecordTransferAccountsFragment extends Fragment {
-    private ImageView mImageView;
+public class AddRecordTransferAccountsFragment extends Fragment implements SketchView.OnDrawChangedListener{
+    private SketchView mSketchView;
     private Bitmap mBitmap;
     private Bitmap mUpBitmap;
     private Canvas mCanvas;
     private Paint mPaint;
     private float mStartX;
     private float mStartY;
+    private int mScreenWidth;
+    private int mScreenHeight;
 
     private static AddRecordTransferAccountsFragment mTemplateFragment;
 
@@ -51,12 +51,14 @@ public class AddRecordTransferAccountsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        initDraw();
-        initGesture();
+//        initDraw();
+//        initGesture();
     }
 
     private void initView(View view) {
-        mImageView = (ImageView) view.findViewById(R.id.add_record_transaccount_iv);
+        mSketchView = (SketchView) view.findViewById(R.id.add_record_trans_account_sv);
+
+        mSketchView.setOnDrawChangedListener(this);
     }
 
     private void initDraw() {
@@ -72,43 +74,6 @@ public class AddRecordTransferAccountsFragment extends Fragment {
         //在纸上作画
         mCanvas.drawBitmap(mBitmap, new Matrix(), mPaint);
     }
-
-    private void initGesture() {
-        mImageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float currentX;
-                float currentY;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        Log.i("event", "手指按下");
-                        //获取手指按下的位置
-                        mStartX = event.getRawX() - v.getTranslationX();
-                        mStartY = event.getRawY() - v.getTranslationY();
-                        Log.i("event", "currentX = " + event.getX());
-                        Log.i("event", "currentY = " + event.getY());
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        Log.i("event", "手指移动");
-                        currentX = event.getRawX() - v.getTranslationX();
-                        currentY = event.getRawY() - v.getTranslationY();
-                        Log.i("event", "currentX = " + event.getRawX());
-                        Log.i("event", "currentY = " + event.getRawY());
-                        //在背景图上作画
-                        mCanvas.drawLine(mStartX, mStartY, currentX, currentY, mPaint);
-                        mStartX = currentX;
-                        mStartY = currentY;
-                        mImageView.setImageBitmap(mUpBitmap);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        Log.i("event", "手指抬起");
-                        break;
-                }
-                return true;
-            }
-        });
-    }
-
 
     //点击改变颜色（红色）
     public void red(View view) {
@@ -135,4 +100,19 @@ public class AddRecordTransferAccountsFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onDrawChanged() {
+// Undo
+        if (mSketchView.getPaths().size() > 0){
+
+//            setAlpha(undo, 1f);
+        }
+//        else
+//            setAlpha(undo, 0.4f);
+//        // Redo
+//        if (mSketchView.getUndoneCount() > 0)
+//            setAlpha(redo, 1f);
+//        else
+//            setAlpha(redo, 0.4f);
+    }
 }
