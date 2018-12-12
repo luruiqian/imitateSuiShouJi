@@ -1,6 +1,7 @@
 package com.cashbook.cashbook.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
 import com.cashbook.cashbook.flow.bean.MyFootPrintBean;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -21,22 +23,9 @@ public class MyBrowseItemAdapter extends BaseAdapter {
     private Context mContext;
     private List<MyFootPrintBean> mBrowseList;
 
-    public MyBrowseItemAdapter(Context context,List<MyFootPrintBean> browseList) {
+    public MyBrowseItemAdapter(Context context, List<MyFootPrintBean> browseList) {
         mContext = context;
         mBrowseList = browseList;
-    }
-
-    private void bindData(ViewHolder holder, int i) {
-        MyFootPrintBean printBean = mBrowseList.get(i);
-//        ImageUtils.with(mContext).loadListImage(printBean.imgUrl, holder.mOrderImage);
-        holder.mBrowseProductNameTv.setText(printBean.produceName);
-        holder.mBrowseProductPriceTv.setText(printBean.salePrice);
-        //有库存，隐藏无货图片；无库存，显示无货图片
-        if (mContext.getString(R.string.im_customer_service_yes).equals(printBean.stockState)) {
-            holder.mNoGoodImage.setVisibility(View.GONE);
-        } else if (mContext.getString(R.string.im_customer_service_no).equals(printBean.stockState)) {
-            holder.mNoGoodImage.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
@@ -61,7 +50,7 @@ public class MyBrowseItemAdapter extends BaseAdapter {
             holder = new MyBrowseItemAdapter.ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.im_chat_product_browser_item_adapter, null);
             holder.mNoGoodImage = (ImageView) convertView.findViewById(R.id.im_chat_product_browse_no_goods);
-//            holder.mOrderImage = (FrescoDraweeView) convertView.findViewById(R.id.im_chat_product_browse_image);
+            holder.mOrderImage = (SimpleDraweeView) convertView.findViewById(R.id.im_chat_product_browse_image);
             holder.mBrowseProductNameTv = (TextView) convertView.findViewById(R.id.im_chat_product_browse_item_name_tv);
             holder.mBrowseProductPriceTv = (TextView) convertView.findViewById(R.id.im_chat_product_browse_item_price_tv);
             convertView.setTag(holder);
@@ -72,9 +61,23 @@ public class MyBrowseItemAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private void bindData(ViewHolder holder, int i) {
+        MyFootPrintBean printBean = mBrowseList.get(i);
+        Uri uri = Uri.parse(printBean.imgUrl);
+        holder.mOrderImage.setImageURI(uri);
+        holder.mBrowseProductNameTv.setText(printBean.produceName);
+        holder.mBrowseProductPriceTv.setText(printBean.salePrice);
+        //有库存，隐藏无货图片；无库存，显示无货图片
+        if (mContext.getString(R.string.im_customer_service_yes).equals(printBean.stockState)) {
+            holder.mNoGoodImage.setVisibility(View.GONE);
+        } else if (mContext.getString(R.string.im_customer_service_no).equals(printBean.stockState)) {
+            holder.mNoGoodImage.setVisibility(View.VISIBLE);
+        }
+    }
+
     private static class ViewHolder {
         public ImageView mNoGoodImage;
-//        public FrescoDraweeView mOrderImage;
+        public SimpleDraweeView mOrderImage;
         public TextView mBrowseProductNameTv;
         public TextView mBrowseProductPriceTv;
     }

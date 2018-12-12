@@ -17,7 +17,7 @@ public interface RequestService {
     /**
      * 用于接收网络请求数据的方法
      */
-    @GET("5bd2b1735bb17c4b7a456cc4/test/myFootPrint")
+    @GET("mobile/profile/memberNewRequire/userFootprints.jsp")
     Call<MyFootPrintBean> getCall();
 
     /**

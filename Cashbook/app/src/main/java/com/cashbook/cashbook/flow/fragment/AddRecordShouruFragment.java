@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddRecordShouruFragment extends Fragment {
     private ListView mIncomeLv;
-    private ArrayList<MyFootPrintBean> mBrowseList;
+    private ArrayList<MyFootPrintBean> mBrowseList = new ArrayList<>();
     private MyBrowseItemAdapter mMyBrowseItemAdapter;
 
     private static AddRecordShouruFragment mTemplateFragment;
@@ -62,7 +62,7 @@ public class AddRecordShouruFragment extends Fragment {
 
     private void getData() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://fanyi.youdao.com/") //设置网络请求的Url地址
+                .baseUrl("https://mobile.gome.com.cn/") //设置网络请求的Url地址
                 .addConverterFactory(GsonConverterFactory.create()) //设置数据解析器
                 .build();
         RequestService service = retrofit.create(RequestService.class);
@@ -76,7 +76,7 @@ public class AddRecordShouruFragment extends Fragment {
             public void onResponse(Call<MyFootPrintBean> call, Response<MyFootPrintBean> response) {
                 Log.d("收入", "我的足迹接口请求成功");
                 if (response != null && response.body() != null && response.body().footPrints != null && response.body().footPrints.size() > 0) {
-                    mBrowseList = response.body().footPrints;
+                    mBrowseList.addAll(response.body().footPrints);
                     mMyBrowseItemAdapter.notifyDataSetChanged();
                 }
             }
