@@ -92,6 +92,8 @@ public class AddRecordShouruFragment extends Fragment {
         mIncomeLv = (ListView) view.findViewById(R.id.add_record_income_lv);
         mMyBrowseItemAdapter = new MyBrowseItemAdapter(getActivity(), mBrowseList);
         mIncomeLv.setAdapter(mMyBrowseItemAdapter);
+        View footerView = LayoutInflater.from(getActivity()).inflate(R.layout.footerview,null);
+        mIncomeLv.addFooterView(footerView);
     }
 
     @Override
