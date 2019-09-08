@@ -89,7 +89,7 @@ class FingerPrintActivity : AppCompatActivity() {
     private fun showFingerPrintDialog(cipher: Cipher) {
         val fragment = FingerPrintFragment()
         fragment.setCipher(cipher)
-        fragment.show(getFragmentManager(), "fingerprint")
+//        fragment.show(getFragmentManager(), "fingerprint")
     }
 
     fun onAuthenticated() {

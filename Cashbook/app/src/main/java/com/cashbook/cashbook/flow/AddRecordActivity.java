@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.bean.MessageEvent;
 import com.cashbook.cashbook.database.CashbookDatabaseManager;
 import com.cashbook.cashbook.database.CashbookInfo;
 import com.cashbook.cashbook.database.CashbookSQLiteOpenHelper;
@@ -37,12 +39,14 @@ import com.cashbook.cashbook.flow.fragment.AddRecordZhichuFragment;
 import com.cashbook.cashbook.view.DragFloatActionBall;
 import com.cashbook.cashbook.view.DragGridView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class AddRecordActivity extends AppCompatActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
+public class AddRecordActivity extends AppCompatActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener ,View.OnTouchListener{
     private TextView mSaveTv;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -66,21 +70,39 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
+//        bindService(new Intent(this, MyService.class),null,0);
+//        MyService service = new MyService();
+//        service.method();
+//        stopService(new Intent(this, MyService.class));
 
         initView();
         initContent();
         initTab();
         initListener();
+        EventBus.getDefault().post(new MessageEvent("我是EventBus返回的数据"));
     }
 
     private void initListener() {
         mSaveTv.setOnClickListener(this);
         mDropRl.setOnClickListener(this);
         mBackIv.setOnClickListener(this);
+        mBackIv.setOnTouchListener(this);
         mBottonSaveTv.setOnClickListener(this);
         mSaveTemplete.setOnClickListener(this);
         mRecordOneMore.setOnClickListener(this);
         mTabLayout.addOnTabSelectedListener(this);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.i("事件分发","activity----dispatchTouchEvent");
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.i("事件分发","activity----onTouchEvent");
+        return super.onTouchEvent(event);
     }
 
     private void initContent() {
@@ -392,5 +414,10 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
     }
 }

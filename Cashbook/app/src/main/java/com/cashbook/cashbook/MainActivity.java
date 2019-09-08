@@ -1,5 +1,8 @@
 package com.cashbook.cashbook;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -64,6 +68,14 @@ public class MainActivity extends MVPBaseActivity<FlowView, FlowPresenter> imple
 //        builder.layoutIconDrawable = R.drawable.flow_record_icon;
 //        // 指定下拉状态栏时显示的通知图标
 //        JPushInterface.setPushNotificationBuilder(2, builder);
+
+        SharedPreferences sp = getSharedPreferences("sss", Context.MODE_WORLD_READABLE);
+        try {
+            Context otherAppContext = createPackageContext("",Context.CONTEXT_IGNORE_SECURITY);
+            //SharedPreferences getSP = otherAppContext.getSharedPreferences("");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initListener() {
@@ -236,4 +248,8 @@ public class MainActivity extends MVPBaseActivity<FlowView, FlowPresenter> imple
 
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
 }

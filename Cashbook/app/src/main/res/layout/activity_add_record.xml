@@ -117,7 +117,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/add_record_bottom_ly"
-        android:layout_below="@id/add_record_title" />
+        android:layout_below="@id/add_record_title"
+        android:visibility="visible"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <com.cashbook.cashbook.view.ViewA
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/black_yellow_background"/>
+        <com.cashbook.cashbook.view.ViewB
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#ff00ff"/>
+    </RelativeLayout>
 
     <com.cashbook.cashbook.view.DragFloatActionBall
         android:id="@+id/add_record_float_ball"

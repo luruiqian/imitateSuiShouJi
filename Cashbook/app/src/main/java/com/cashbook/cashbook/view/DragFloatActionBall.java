@@ -3,6 +3,7 @@ package com.cashbook.cashbook.view;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
@@ -158,6 +159,11 @@ public class DragFloatActionBall extends FloatingActionButton {
     private boolean isNotDrag() {
         return !isDrag && (getX() == 0
                 || (getX() == parentWidth - getWidth()));
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
     }
 
     /**

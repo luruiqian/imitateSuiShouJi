@@ -9,26 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashbook.cashbook.R;
-import com.cashbook.cashbook.utils.MD5Util;
+import com.cashbook.cashbook.utils.GsonHelper;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.Headers;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MoreFragment extends Fragment {
+public class MoreFragmentcccc extends Fragment {
     static final int str = 20;
-    private Map<Integer, String> map = new HashMap<>();
+    private Map<Integer,String> map = new HashMap<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,7 @@ public class MoreFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rxjavaTest();
-        //setfunction(20);
+
         Log.e("skdjfaksfdask------", str + "");
         asyGetData();
     }
@@ -62,26 +61,17 @@ public class MoreFragment extends Fragment {
 //        loginBean.phone = "18500061603";
 //        loginBean.umengId = "abc123";
 
-//        Map<String, String> params = new HashMap<>();
-//        params.put("deviceId", "de701fa86c145d32b27930039879d921");
-//        params.put("jpushId", "140fe1da9e83f2fc047");
-//        params.put("password", "7a47a7dad08a1de638664619c92b9365");
-//        params.put("phone", "18500061603");
-//        params.put("umengId", "abc123");
-//
-//        Gson gson = new Gson();
-//        String json = gson.toJson(params);
+        Map<String,String> params = new HashMap<>();
+        params.put("deviceId","de701fa86c145d32b27930039879d921");
+        params.put("jpushId","140fe1da9e83f2fc047");
+        params.put("password","7a47a7dad08a1de638664619c92b9365");
+        params.put("phone","18500061603");
+        params.put("umengId","abc123");
 
-        FormBody formBody = new FormBody.Builder()
-                .add("deviceId", "de701fa86c145d32b27930039879d921")
-                .add("jpushId", "140fe1da9e83f2fc047")
-                .add("password", MD5Util.encode("123456"))
-                .add("phone", "18500061603")
-                .add("umengId", "abc123")
-                .build();
-
+        Gson gson = new Gson();
+        String json = GsonHelper.toString(params);
         //请求body
-        //RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
         Headers headers = new Headers.Builder()
                 .add("Content-Length", "144")
                 .add("Accept-Encoding", "gzip")
@@ -90,9 +80,9 @@ public class MoreFragment extends Fragment {
                 .build();
         Request request = new Request.Builder()
                 .url("http://www.reebo.cn/train-student/0100/login")
-                .post(formBody)
+                .post(body)
                 .headers(headers)
-                .build();
+                .post(body).build();
         Call call = client.newCall(request);
 
         call.enqueue(new Callback() {
@@ -104,7 +94,7 @@ public class MoreFragment extends Fragment {
             }
 
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(Call call, Response response){
                 Log.i("okhttp", "11111111111111111111");
 
                 Log.i("okhttp", response.body().toString());
@@ -113,35 +103,14 @@ public class MoreFragment extends Fragment {
                 }
             }
         });
+
     }
 
 
-    private void rxjavaTest() {
-        Observer<String> observer = new Observer<String>() {
 
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(String s) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        };
 
 
 
 
     }
-}
+

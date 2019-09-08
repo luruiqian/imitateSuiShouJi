@@ -16,12 +16,17 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.bean.MessageEvent;
 import com.cashbook.cashbook.data.CashbookSQLiteOpenHelper;
 import com.cashbook.cashbook.flow.adapter.FlowRecordAdapter;
 import com.cashbook.cashbook.flow.adapter.FlowSpinnerAdapter;
 import com.cashbook.cashbook.flow.bean.AccountInfo;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,6 +70,8 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
         initView(view);
         setData();
         initListener();
+        EventBus.getDefault().register(this);
+
     }
 
     private void initListener() {
@@ -165,6 +172,17 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
             window.showAtLocation(mInfoIv, Gravity.RIGHT, 20, -120);
 
         }
+    }
+
+    @Subscribe(sticky = false)
+    public void makeEvent(MessageEvent messageEvent){
+        Toast.makeText(getActivity(),messageEvent.getMessage(),Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private void hideWords(boolean isOpenEye) {
