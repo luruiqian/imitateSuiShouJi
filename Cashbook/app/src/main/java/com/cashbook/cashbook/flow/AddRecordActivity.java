@@ -143,19 +143,19 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         cashbookInfo0.type = "指出";
         mCashbookDatabaseManager.addAccountData(cashbookInfo0);
 
-        //支出
+        //代付
         CashbookInfo cashbookInfo1 = new CashbookInfo();
         cashbookInfo1.money = "0.00";
-        cashbookInfo1.name = "支出";
+        cashbookInfo1.name = "代付";
         cashbookInfo1.beizhu = 1;
-        cashbookInfo1.isTemplate = 1;
+        cashbookInfo1.isTemplate = 0;
         cashbookInfo1.type = "指出";
         mCashbookDatabaseManager.addAccountData(cashbookInfo1);
 
-        //收入
+        //支出
         CashbookInfo cashbookInfo2 = new CashbookInfo();
         cashbookInfo2.money = "0.00";
-        cashbookInfo2.name = "收入";
+        cashbookInfo2.name = "支出";
         cashbookInfo2.beizhu = 1;
         cashbookInfo2.isTemplate = 1;
         cashbookInfo2.type = "指出";
@@ -164,56 +164,58 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         //收入
         CashbookInfo cashbookInfo3 = new CashbookInfo();
         cashbookInfo3.money = "0.00";
-        cashbookInfo3.name = "转账";
+        cashbookInfo3.name = "收入";
         cashbookInfo3.beizhu = 1;
         cashbookInfo3.isTemplate = 1;
         cashbookInfo3.type = "指出";
         mCashbookDatabaseManager.addAccountData(cashbookInfo3);
 
-        //余额
+        //转账
         CashbookInfo cashbookInfo4 = new CashbookInfo();
         cashbookInfo4.money = "0.00";
-        cashbookInfo4.name = "余额";
+        cashbookInfo4.name = "转账";
         cashbookInfo4.beizhu = 1;
-        cashbookInfo4.isTemplate = 0;
+        cashbookInfo4.isTemplate = 1;
         cashbookInfo4.type = "指出";
         mCashbookDatabaseManager.addAccountData(cashbookInfo4);
 
-        //代付
+        //余额
         CashbookInfo cashbookInfo5 = new CashbookInfo();
         cashbookInfo5.money = "0.00";
-        cashbookInfo5.name = "代付";
+        cashbookInfo5.name = "余额";
         cashbookInfo5.beizhu = 1;
         cashbookInfo5.isTemplate = 0;
         cashbookInfo5.type = "指出";
         mCashbookDatabaseManager.addAccountData(cashbookInfo5);
 
-        //报销
+        //借贷
         CashbookInfo cashbookInfo6 = new CashbookInfo();
         cashbookInfo6.money = "0.00";
-        cashbookInfo6.name = "报销";
+        cashbookInfo6.name = "借贷";
         cashbookInfo6.beizhu = 1;
         cashbookInfo6.isTemplate = 0;
         cashbookInfo6.type = "指出";
         mCashbookDatabaseManager.addAccountData(cashbookInfo6);
 
-        //退款
+        //报销
         CashbookInfo cashbookInfo7 = new CashbookInfo();
         cashbookInfo7.money = "0.00";
-        cashbookInfo7.name = "退款";
+        cashbookInfo7.name = "报销";
         cashbookInfo7.beizhu = 1;
         cashbookInfo7.isTemplate = 0;
         cashbookInfo7.type = "指出";
         mCashbookDatabaseManager.addAccountData(cashbookInfo7);
 
-        //借贷
+        //退款
         CashbookInfo cashbookInfo8 = new CashbookInfo();
         cashbookInfo8.money = "0.00";
-        cashbookInfo8.name = "借贷";
+        cashbookInfo8.name = "退款";
         cashbookInfo8.beizhu = 1;
         cashbookInfo8.isTemplate = 0;
         cashbookInfo8.type = "指出";
         mCashbookDatabaseManager.addAccountData(cashbookInfo8);
+
+
     }
 
     private void addIndicators() {
@@ -257,7 +259,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.add_save_tv) {
-            Log.e("getx","66666666");
+            Log.e("getx", "66666666");
         } else if (v.getId() == R.id.add_save_template_tv) {
 
         } else if (v.getId() == R.id.add_one_more_tv) {

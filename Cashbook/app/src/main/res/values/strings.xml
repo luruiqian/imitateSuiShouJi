@@ -14,4 +14,6 @@
     <string name="pickerview_hours">时</string>
     <string name="pickerview_minutes">分</string>
     <string name="pickerview_seconds">秒</string>
+    <string name="im_customer_service_yes">Y</string>
+    <string name="im_customer_service_no">N</string>
 </resources>

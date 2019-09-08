@@ -24,4 +24,8 @@
     <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
     <color name="pickerview_bgColor_overlay">#60000000</color>
     <color name="pickerview_bgColor_default">#FFFFFFFF</color>
+    <color name="im_color_order_price">#00050A</color>
+    <color name="im_bottom_popup_window_item_text_default_color">#333333</color>
+    <color name="transparent">#00000000</color>
+
 </resources>
