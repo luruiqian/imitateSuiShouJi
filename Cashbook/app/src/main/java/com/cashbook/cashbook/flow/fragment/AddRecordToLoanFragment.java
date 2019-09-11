@@ -39,7 +39,7 @@ public class AddRecordToLoanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_record_template, container, false);
+        return inflater.inflate(R.layout.fragment_add_record_toloan, container, false);
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class AddRecordToLoanFragment extends Fragment {
     }
 
     private void initView(View view) {
-        mTextView = (TextView) view.findViewById(R.id.add_record_tab_tv);
-        mTextView.setText(pageName);
+//        mTextView = (TextView) view.findViewById(R.id.add_record_tab_tv);
+//        mTextView.setText(pageName);
     }
     @Override
     public void onAttach(Context context) {

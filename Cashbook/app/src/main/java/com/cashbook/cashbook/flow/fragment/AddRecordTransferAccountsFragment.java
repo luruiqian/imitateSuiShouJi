@@ -234,8 +234,8 @@ public class AddRecordTransferAccountsFragment extends Fragment {
 
 
     private void initView(View view) {
-        mTextView = (TextView) view.findViewById(R.id.add_record_tab_tv);
-        mTextView.setText(pageName);
+//        mTextView = (TextView) view.findViewById(R.id.add_record_tab_tv);
+//        mTextView.setText(pageName);
     }
 
     @Override

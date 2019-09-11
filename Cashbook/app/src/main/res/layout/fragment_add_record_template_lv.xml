@@ -3,9 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/add_record_template_rv"
+    <ListView
+        android:id="@+id/add_record_template_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:divider="@color/color_999999"
+        android:dividerHeight="0.5dp"
+        android:paddingLeft="10dp" />
     
 </FrameLayout>
