@@ -1,4 +1,4 @@
-package com.cashbook.cashbook.view;
+package com.cashbook.cashbook.View;
 
 import android.app.Activity;
 import android.app.Dialog;

@@ -38,20 +38,20 @@
         <item name="android:windowBackground">@drawable/bg_splash</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <style name="fresco_grey_little_base">
-        <item name="fadeDuration">300</item>
-        <item name="backgroundImage">@color/transparent</item>
-        <item name="placeholderImage">@drawable/gt_default_grey_little</item>
-        <item name="placeholderImageScaleType">fitXY</item>
-        <item name="failureImage">@drawable/gt_default_grey_little</item>
-        <item name="failureImageScaleType">fitXY</item>
-        <item name="retryImage">@drawable/gt_default_grey_little</item>
-        <item name="retryImageScaleType">fitXY</item>
-        <item name="overlayImage">@color/transparent</item>
-        <item name="pressedStateOverlayImage">@color/transparent</item>
-    </style>
-    <style name="fresco_grey_little_fitxy" parent="fresco_grey_little_base">
-        <item name="actualImageScaleType">fitXY</item>
-        <item name="android:scaleType">fitXY</item>
-    </style>
+<!--    <style name="fresco_grey_little_base">-->
+<!--        <item name="fadeDuration">300</item>-->
+<!--        <item name="backgroundImage">@color/transparent</item>-->
+<!--        <item name="placeholderImage">@drawable/gt_default_grey_little</item>-->
+<!--        <item name="placeholderImageScaleType">fitXY</item>-->
+<!--        <item name="failureImage">@drawable/gt_default_grey_little</item>-->
+<!--        <item name="failureImageScaleType">fitXY</item>-->
+<!--        <item name="retryImage">@drawable/gt_default_grey_little</item>-->
+<!--        <item name="retryImageScaleType">fitXY</item>-->
+<!--        <item name="overlayImage">@color/transparent</item>-->
+<!--        <item name="pressedStateOverlayImage">@color/transparent</item>-->
+<!--    </style>-->
+<!--    <style name="fresco_grey_little_fitxy" parent="fresco_grey_little_base">-->
+<!--        <item name="actualImageScaleType">fitXY</item>-->
+<!--        <item name="android:scaleType">fitXY</item>-->
+<!--    </style>-->
 </resources>

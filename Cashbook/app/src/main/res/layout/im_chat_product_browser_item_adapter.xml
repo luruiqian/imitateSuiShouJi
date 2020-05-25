@@ -17,13 +17,11 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/im_chat_product_browse_image"
-            style="@style/fresco_grey_little_fitxy"
             android:layout_width="75dp"
             android:layout_height="75dp" />
 
         <ImageView
             android:id="@+id/im_chat_product_browse_no_goods"
-            style="@style/fresco_grey_little_fitxy"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:layout_centerInParent="true"

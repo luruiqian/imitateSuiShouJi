@@ -3,6 +3,7 @@ package com.cashbook.cashbook.flow.fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,12 +12,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.View.OptionsPickerView;
 import com.cashbook.cashbook.builder.OptionsPickerBuilder;
 import com.cashbook.cashbook.listener.OnOptionsSelectChangeListener;
 import com.cashbook.cashbook.listener.OnOptionsSelectListener;
-import com.cashbook.cashbook.view.OptionsPickerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class AddRecordDaifuFragment extends Fragment implements View.OnClickListener {
     private OptionsPickerView mOptionsPickerView;
@@ -60,6 +68,20 @@ public class AddRecordDaifuFragment extends Fragment implements View.OnClickList
         initListener();
         initOptionData();
         initOptions();
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url("").build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
     }
 
     private void initOptionData() {

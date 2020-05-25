@@ -1,4 +1,4 @@
-package com.cashbook.cashbook.view;
+package com.cashbook.cashbook.View;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class OptionsPickerView<T> extends BasePickerView implements View.OnClickListener {
 
-    private WheelOptions wheelOptions;
+    private com.cashbook.cashbook.view.WheelOptions wheelOptions;
     private Context mContext;
 
     private static final String TAG_SUBMIT = "submit";
@@ -76,7 +76,7 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         final LinearLayout optionsPicker = (LinearLayout) findViewById(R.id.optionspicker);
         optionsPicker.setBackgroundColor(mPickerOptions.bgColorWheel);
 
-        wheelOptions = new WheelOptions(optionsPicker, mPickerOptions.isRestoreItem, mContext);
+        wheelOptions = new com.cashbook.cashbook.view.WheelOptions(optionsPicker, mPickerOptions.isRestoreItem, mContext);
         if (mPickerOptions.optionsSelectChangeListener != null) {
             wheelOptions.setOptionsSelectChangeListener(mPickerOptions.optionsSelectChangeListener);
         }

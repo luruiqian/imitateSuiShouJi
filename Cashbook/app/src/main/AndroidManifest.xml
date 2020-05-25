@@ -52,7 +52,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.FingerPrintActivity"></activity>
         <service android:name=".service.MyService"></service>
         <provider
             android:authorities="com.lu.cashbook"

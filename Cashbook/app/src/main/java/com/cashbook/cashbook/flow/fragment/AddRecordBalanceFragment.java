@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.View.ExpendPoint;
 import com.cashbook.cashbook.bean.AddRecordNewsBean;
 import com.cashbook.cashbook.bean.AddRecordNewsList;
 import com.cashbook.cashbook.flow.adapter.AddRecordBalanceAdapter;
@@ -29,7 +30,7 @@ public class AddRecordBalanceFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<AddRecordNewsList> mNewsList;
     private String data;
-
+    private ExpendPoint mExpoint;
 
     private static AddRecordBalanceFragment mTemplateFragment;
 
@@ -61,12 +62,20 @@ public class AddRecordBalanceFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         data = readAssertResource(getActivity(), "dates.txt");
         transToJson(data);
-        initView(view);
+        mExpoint = view.findViewById(R.id.expendPoint);
+//        for (int i = 0; i < 1; i++) {
+
+            mExpoint.setPercent(1.5f);
+//        }
+
+//        initView(view);
     }
 
     private void transToJson(String s) {
-        AddRecordNewsBean bean = new Gson().fromJson(s,AddRecordNewsBean.class);
-        mNewsList = bean.data;
+        AddRecordNewsBean bean = new Gson().fromJson(s, AddRecordNewsBean.class);
+        if (null != bean) {
+            mNewsList = bean.data;
+        }
     }
 
     private void initView(View view) {
