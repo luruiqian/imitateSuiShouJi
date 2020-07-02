@@ -25,6 +25,7 @@ import com.cashbook.cashbook.load.LoadFragment;
 import com.cashbook.cashbook.more.MoreFragment;
 import com.cashbook.cashbook.mvp.MVPBaseActivity;
 import com.cashbook.cashbook.my.MyFragment;
+import com.umeng.message.PushAgent;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class MainActivity extends MVPBaseActivity<FlowView, FlowPresenter> imple
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MyApplication.getInstance().addActivity(MainActivity.this);
-        initView();
+        PushAgent.getInstance(MainActivity.this).onAppStart();initView();
         initResource();
         initTab();
         initFragment();

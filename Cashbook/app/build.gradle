@@ -18,7 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
@@ -37,7 +37,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    dexOptions {
+        javaMaxHeapSize "4g"
+        jumboMode = true
+    }
 }
 
 dependencies {
@@ -65,6 +68,24 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     implementation 'com.facebook.fresco:fresco:0.12.0'
+
+    // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
+    //OAID目前为目前国内市场主流的Android Q设备标识，可根据需要选择。
+    implementation "com.umeng.umsdk:common:9.1.0"//（必选）
+    implementation "com.umeng.umsdk:asms:1.1.3" // asms包依赖(必选)
+    implementation "com.umeng.umsdk:crash:0.0.4" // native crash包依赖(必选)
+    implementation 'com.umeng.umsdk:utdid:1.5.2'
+    //友盟push相关依赖(必须)
+    implementation 'com.umeng.umsdk:push:6.1.0'
+    implementation 'com.umeng.umsdk:alicloud-httpdns:1.2.5'
+    implementation 'com.umeng.umsdk:alicloud-utils:1.1.5'
+    implementation 'com.umeng.umsdk:alicloud_beacon:1.0.1'
+    implementation 'com.umeng.umsdk:agoo-accs:3.3.8.8-open-fix2'
+    implementation 'com.umeng.umsdk:agoo_networksdk:3.5.5'
+    implementation 'com.umeng.umsdk:agoo_tlog:3.0.0.17'
+    implementation 'com.umeng.umsdk:agoo_tnet4android:3.1.14.9'
+
+    implementation 'com.android.support:multidex:1.0.3'
 }
 repositories {
     //修改成国内阿里云的maven地址，否则某些地方下载不下来

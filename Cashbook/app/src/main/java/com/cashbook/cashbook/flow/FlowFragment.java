@@ -104,16 +104,16 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
         values.put("income", "");
 
         //假数据
-        accountList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            AccountInfo accountInfo = new AccountInfo();
-            accountInfo.time = "本周";
-            accountInfo.expend = "50.00";
-            accountInfo.income = "100.00";
-            accountInfo.recordSubscribe = "这是本月的财务情况";
-            accountInfo.isShowMoney = true;
-            accountList.add(accountInfo);
-        }
+//        accountList = new ArrayList<>();
+//        for (int i = 0; i < 4; i++) {
+//            AccountInfo accountInfo = new AccountInfo();
+//            accountInfo.time = "本周";
+//            accountInfo.expend = "50.00";
+//            accountInfo.income = "100.00";
+//            accountInfo.recordSubscribe = "这是本月的财务情况";
+//            accountInfo.isShowMoney = true;
+////            accountList.add(accountInfo);
+//        }
     }
 
     private void initView(View view) {
