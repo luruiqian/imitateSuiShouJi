@@ -11,6 +11,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
+import com.umeng.socialize.PlatformConfig;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,7 @@ public class MyApplication extends Application {
         super.onCreate();
 //        JPushInterface.setDebugMode(true);
 //        JPushInterface.init(this);
+        Log.i(TAG,"application-onCreate");
         Fresco.initialize(this);
         initUMengSdk();
     }
@@ -52,8 +54,8 @@ public class MyApplication extends Application {
 
     private void initUMengSdk() {
         //友盟统计（崩溃）
-        UMConfigure.init(this, "5efc5135dbc2ec078c8134ca", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+//        UMConfigure.init(this, "5efc5135dbc2ec078c8134ca", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
         // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
         // 参数一：当前上下文context；
         // 参数二：应用申请的Appkey（需替换）；
@@ -79,6 +81,20 @@ public class MyApplication extends Application {
                 Log.e(TAG,"注册失败：-------->  " + "s:" + s + ",s1:" + s1);
             }
         });
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        //豆瓣RENREN平台目前只能在服务器端配置
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+        PlatformConfig.setYixin("yxc0614e80c9304c11b0391514d09f13bf");
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+        PlatformConfig.setTwitter("3aIN7fuF685MuZ7jtXkQxalyi", "MK6FEYG63eWcpDFgRYw4w9puJhzDl0tyuqWjZ3M7XJuuG7mMbO");
+        PlatformConfig.setAlipay("2015111700822536");
+        PlatformConfig.setLaiwang("laiwangd497e70d4", "d497e70d4c3e4efeab1381476bac4c5e");
+        PlatformConfig.setPinterest("1439206");
+        PlatformConfig.setKakao("e4f60e065048eb031e235c806b31c70f");
+        PlatformConfig.setDing("dingoalmlnohc0wggfedpk");
+        PlatformConfig.setVKontakte("5764965","5My6SNliAaLxEm3Lyd9J");
+        PlatformConfig.setDropbox("oz8v5apet3arcdy","h7p2pjbzkkxt02a");
+//        PlatformConfig.setYnote("9c82bf470cba7bd2f1819b0ee26f86c6ce670e9b");
     }
 
     //添加到数组中

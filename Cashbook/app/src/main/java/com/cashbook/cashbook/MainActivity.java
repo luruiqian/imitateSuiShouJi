@@ -70,13 +70,13 @@ public class MainActivity extends MVPBaseActivity<FlowView, FlowPresenter> imple
 //        // 指定下拉状态栏时显示的通知图标
 //        JPushInterface.setPushNotificationBuilder(2, builder);
 
-        SharedPreferences sp = getSharedPreferences("sss", Context.MODE_WORLD_READABLE);
-        try {
-            Context otherAppContext = createPackageContext("",Context.CONTEXT_IGNORE_SECURITY);
-            //SharedPreferences getSP = otherAppContext.getSharedPreferences("");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+//        SharedPreferences sp = getSharedPreferences("sss", Context.MODE_WORLD_READABLE);
+//        try {
+//            Context otherAppContext = createPackageContext("",Context.CONTEXT_IGNORE_SECURITY);
+//            //SharedPreferences getSP = otherAppContext.getSharedPreferences("");
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void initListener() {
