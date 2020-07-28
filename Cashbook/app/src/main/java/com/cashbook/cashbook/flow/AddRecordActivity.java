@@ -341,7 +341,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
             dragMap9.put("dragInfo", dragInfo9);
             dataSourceList.add(dragMap9);
 
-            DragGridView dragGridView = (DragGridView) root.findViewById(R.id.add_record_drop_dgv);
+            DragGridView dragGridView = root.findViewById(R.id.add_record_drop_dgv);
 
             final DragAdapter dragAdapter = new DragAdapter(AddRecordActivity.this, dataSourceList, mViewPager.getCurrentItem());
             dragGridView.setAdapter(dragAdapter);

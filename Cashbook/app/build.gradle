@@ -76,7 +76,9 @@ dependencies {
 
     // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
     //OAID目前为目前国内市场主流的Android Q设备标识，可根据需要选择。
-    implementation "com.umeng.umsdk:common:9.1.0"//（必选）
+//    implementation "com.umeng.umsdk:common:9.1.0"//（必选）
+    implementation "com.umeng.umsdk:analytics:8.1.3"
+    implementation "com.umeng.umsdk:common:2.1.0"//（必选）
     implementation "com.umeng.umsdk:asms:1.1.3" // asms包依赖(必选)
     implementation "com.umeng.umsdk:crash:0.0.4" // native crash包依赖(必选)
     implementation 'com.umeng.umsdk:utdid:1.5.2'
@@ -94,13 +96,14 @@ dependencies {
     implementation 'com.umeng.umsdk:share-core:7.0.2'
     implementation 'com.umeng.umsdk:share-board:7.0.2'
 
-    implementation 'com.umeng.umsdk:share-qq:7.0.2'
+//    implementation 'com.umeng.umsdk:share-qq:7.0.2'
     implementation 'com.umeng.umsdk:share-wx:7.0.2'
     implementation 'com.umeng.umsdk:share-sina:7.0.2'
     implementation 'com.umeng.umsdk:share-alipay:7.0.2'
     implementation 'com.umeng.umsdk:share-dingding:7.0.2'
 
     implementation 'com.android.support:multidex:1.0.3'
+//    implementation 'com.permissionx.guolindev:permissionx:1.3.0'
 }
 repositories {
     //修改成国内阿里云的maven地址，否则某些地方下载不下来

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.cashbook.cashbook.utils.CrashHandler;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
@@ -45,17 +46,17 @@ public class MyApplication extends Application {
         initUMengSdk();
     }
 
-//    @Override
-//    protected void attachBaseContext(Context base) {
-//        super.attachBaseContext(base);
-//        MultiDex.install(this);
-//
-//    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+
+    }
 
     private void initUMengSdk() {
         //友盟统计（崩溃）
-//        UMConfigure.init(this, "5efc5135dbc2ec078c8134ca", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-//        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        UMConfigure.init(this, "5efc5135dbc2ec078c8134ca", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
         // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
         // 参数一：当前上下文context；
         // 参数二：应用申请的Appkey（需替换）；
@@ -95,6 +96,8 @@ public class MyApplication extends Application {
         PlatformConfig.setVKontakte("5764965","5My6SNliAaLxEm3Lyd9J");
         PlatformConfig.setDropbox("oz8v5apet3arcdy","h7p2pjbzkkxt02a");
 //        PlatformConfig.setYnote("9c82bf470cba7bd2f1819b0ee26f86c6ce670e9b");
+        /** 初始化异常捕获 **/
+        //CrashHandler.getInstance().init(getApplicationContext());
     }
 
     //添加到数组中

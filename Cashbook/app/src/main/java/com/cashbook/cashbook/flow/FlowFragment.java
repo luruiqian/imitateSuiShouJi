@@ -1,11 +1,18 @@
 package com.cashbook.cashbook.flow;
 
+import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,11 +55,14 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
     private TextView mMonthBudget;
     private ImageView mEyesIv;
     private ImageView mInfoIv;
+    private ImageView mScan;
 
     private RelativeLayout mRecordAccountRl;
     private int year;
     private int month;
     private boolean isOpenEye = true;
+
+    private static final int REQUEST_CAMERA_CODE = 1;
 
     /**
      * onCreateView是创建的时候调用，onViewCreated是在onCreateView后被触发的事件
@@ -77,6 +87,7 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
     private void initListener() {
         mEyesIv.setOnClickListener(this);
         mInfoIv.setOnClickListener(this);
+        mScan.setOnClickListener(this);
         mRecordAccountRl.setOnClickListener(this);
     }
 
@@ -124,6 +135,7 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
         mMonthBudget = (TextView) view.findViewById(R.id.flow_budget_tv);
         mEyesIv = (ImageView) view.findViewById(R.id.flow_open_eye_iv);
         mInfoIv = (ImageView) view.findViewById(R.id.flow_info_iv);
+        mScan = (ImageView) view.findViewById(R.id.flow_message_iv);
         mTitleMonth = (TextView) view.findViewById(R.id.flow_month);
         mTitleYear = (TextView) view.findViewById(R.id.flow_year);
 
@@ -171,12 +183,47 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
 //            window.showAsDropDown(mInfoIv,-200,20);
             window.showAtLocation(mInfoIv, Gravity.RIGHT, 20, -120);
 
+        } else if (v.getId() == R.id.flow_message_iv) {
+//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//                return ;
+//            }
+            //1.检测是否有权限
+            if (hasPermission(getActivity())) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, REQUEST_CAMERA_CODE);
+            } else {
+                //2.如果没有权限就请求权限
+                Toast.makeText(getContext(), "无权限", Toast.LENGTH_SHORT).show();
+                //requestPermission 是异步请求方法，调用它之后，Android会弹出系统权限授权对话框要求用户反馈。
+                //为响应用户操作，还需要重写onRequestPermissionResult()响应方法，用户点击 允许 或 拒绝 按钮后，Android就会调用这个方法。
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
+            }
+        }
+    }
+
+    public static boolean hasPermission(Context context) {
+        int result = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 0: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getContext(), "已经获取权限，可以进行操作", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "您拒绝了权限", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
         }
     }
 
     @Subscribe(sticky = false)
-    public void makeEvent(MessageEvent messageEvent){
-        Toast.makeText(getActivity(),messageEvent.getMessage(),Toast.LENGTH_SHORT).show();
+    public void makeEvent(MessageEvent messageEvent) {
+        Toast.makeText(getActivity(), messageEvent.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

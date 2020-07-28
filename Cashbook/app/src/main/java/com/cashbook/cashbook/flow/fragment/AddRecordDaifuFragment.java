@@ -69,19 +69,19 @@ public class AddRecordDaifuFragment extends Fragment implements View.OnClickList
         initOptionData();
         initOptions();
 
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("").build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url("").build();
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//
+//            }
+//        });
     }
 
     private void initOptionData() {
