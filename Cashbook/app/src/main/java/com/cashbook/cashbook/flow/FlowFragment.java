@@ -3,16 +3,21 @@ package com.cashbook.cashbook.flow;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -188,7 +193,7 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
 //                return ;
 //            }
             //1.检测是否有权限
-            if (hasPermission(getActivity())) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, REQUEST_CAMERA_CODE);
             } else {
@@ -206,6 +211,9 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
+    /***
+     * 3.重写onRequestPermissionResult()响应方法，用户点击 允许 或 拒绝 按钮后，Android就会调用这个方法。
+     * */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -214,10 +222,42 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getContext(), "已经获取权限，可以进行操作", Toast.LENGTH_SHORT).show();
                 } else {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permissions[0])) {
+                        //点击“禁止”
+                        new AlertDialog.Builder(getActivity()).setMessage("该功能需要您开启摄像头权限")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
+                                            }
+                                        }
+                                ).show();
+                    } else {
+                        //点击“拒绝并不再询问”
+                        new AlertDialog.Builder(getActivity()).setMessage("该功能需要您开启摄像头权限，请去设置中统一摄像头权限")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                                                intent.putExtra("uri", uri.toString());
+                                                startActivityForResult(intent, 1);
+                                            }
+                                        }
+                                ).show();
+                    }
                     Toast.makeText(getContext(), "您拒绝了权限", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
         }
     }
 
