@@ -38,6 +38,7 @@ class PhotoViewer {
     private ShowImageViewInterface mInterface;
     //commit 2
     private OnPhotoViewerCreatedListener mCreatedInterface;
+    //commit 3
     private OnPhotoViewerDestroyListener mDestroyInterface;
 
     private ArrayList<String> imgData; // 图片数据
