@@ -1,6 +1,7 @@
 package com.cashbook.cashbook.flow.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
+import com.cashbook.cashbook.activity.ImageScaleActivity;
+import com.cashbook.cashbook.activity.ImageZoomActivity;
 
 public class AddRecordToLoanFragment extends Fragment {
     private static String pageName;
@@ -41,6 +44,7 @@ public class AddRecordToLoanFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_record_toloan, container, false);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -48,9 +52,19 @@ public class AddRecordToLoanFragment extends Fragment {
     }
 
     private void initView(View view) {
-//        mTextView = (TextView) view.findViewById(R.id.add_record_tab_tv);
-//        mTextView.setText(pageName);
+        mTextView = (TextView) view.findViewById(R.id.id_to_large);
+        mTextView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent();
+//                intent.setClass(getActivity(), ImageZoomActivity.class);
+                intent.setClass(getActivity(), ImageScaleActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        }) ;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

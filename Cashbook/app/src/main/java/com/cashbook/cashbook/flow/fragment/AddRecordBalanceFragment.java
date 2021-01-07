@@ -79,7 +79,6 @@ public class AddRecordBalanceFragment extends Fragment {
     }
 
     private void initView(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.add_record_template_rv);
         AddRecordBalanceAdapter adapter = new AddRecordBalanceAdapter(getActivity(), mNewsList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(adapter);

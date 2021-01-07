@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/Cashbook-app.iml" filepath="$PROJECT_DIR$/app/Cashbook-app.iml" group="Cashbook/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/imitateSuiShouJi-Cashbook.iml" filepath="$PROJECT_DIR$/imitateSuiShouJi-Cashbook.iml" group="Cashbook" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/permissionapplication/permissionapplication.iml" filepath="$PROJECT_DIR$/.idea/modules/permissionapplication/permissionapplication.iml" group="Cashbook/permissionapplication" />
     </modules>
   </component>
 </project>

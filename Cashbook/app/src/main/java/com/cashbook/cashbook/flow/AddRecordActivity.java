@@ -126,7 +126,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         mRecordFragments.add(AddRecordShouruFragment.newInstance("收入"));
         mRecordFragments.add(AddRecordTransferAccountsFragment.newInstance("转账"));
         mRecordFragments.add(AddRecordBalanceFragment.newInstance("余额"));
-        mRecordFragments.add(AddRecordToLoanFragment.newInstance("借贷"));
+        mRecordFragments.add(AddRecordToLoanFragment.newInstance("放大图片"));
         mRecordFragments.add(AddRecordBaoxiaoFragment.newInstance("报销"));
         mRecordFragments.add(AddRecordRefundFragment.newInstance("退款"));
         manager = getSupportFragmentManager();

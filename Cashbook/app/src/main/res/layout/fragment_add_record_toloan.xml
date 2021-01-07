@@ -3,12 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/add_record_template_rv"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/id_to_large"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="@color/color_999999"
-        android:dividerHeight="0.5dp"
-        android:paddingLeft="10dp" />
-    
+        android:text="点击跳转图片放大" />
+
 </FrameLayout>

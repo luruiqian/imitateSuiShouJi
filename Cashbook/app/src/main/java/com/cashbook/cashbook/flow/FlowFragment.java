@@ -36,6 +36,7 @@ import com.cashbook.cashbook.data.CashbookSQLiteOpenHelper;
 import com.cashbook.cashbook.flow.adapter.FlowRecordAdapter;
 import com.cashbook.cashbook.flow.adapter.FlowSpinnerAdapter;
 import com.cashbook.cashbook.flow.bean.AccountInfo;
+import com.umeng.commonsdk.debug.I;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -193,18 +194,18 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
 //                return ;
 //            }
             //1.检测是否有权限
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, REQUEST_CAMERA_CODE);
-            } else {
-                //2.如果没有权限就请求权限
-                Toast.makeText(getContext(), "无权限", Toast.LENGTH_SHORT).show();
-                //requestPermission 是异步请求方法，调用它之后，Android会弹出系统权限授权对话框要求用户反馈。
-                //为响应用户操作，还需要重写onRequestPermissionResult()响应方法，用户点击 允许 或 拒绝 按钮后，Android就会调用这个方法。
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
-            }
+//            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(intent, REQUEST_CAMERA_CODE);
+//            } else {
+            //2.如果没有权限就请求权限
+//            Toast.makeText(getContext(), "无权限", Toast.LENGTH_SHORT).show();
+            //requestPermission 是异步请求方法，调用它之后，Android会弹出系统权限授权对话框要求用户反馈。
+            //为响应用户操作，还需要重写onRequestPermissionResult()响应方法，用户点击 允许 或 拒绝 按钮后，Android就会调用这个方法。
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
     }
+//    }
 
     public static boolean hasPermission(Context context) {
         int result = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA);
@@ -219,46 +220,59 @@ public class FlowFragment extends Fragment implements View.OnClickListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 0: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getContext(), "已经获取权限，可以进行操作", Toast.LENGTH_SHORT).show();
+                List denied = new ArrayList();//存放拒绝的权限
+                List deniedAndNotAllow = new ArrayList();//存放拒绝且不再询问的权限
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permissions[i])) {
+                            //点击“禁止”
+                            denied.add(permissions[i]);
+                        } else {
+                            //点击“拒绝并不再询问”
+                            deniedAndNotAllow.add(permissions[i]);
+                        }
+                    }
+                }
+                if (denied.size() == 0 && deniedAndNotAllow.size() == 0) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CAMERA_CODE);
                 } else {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permissions[0])) {
-                        //点击“禁止”
+                    if (denied.size() != 0) {
                         new AlertDialog.Builder(getActivity()).setMessage("该功能需要您开启摄像头权限")
                                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
+                                                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
                                             }
                                         }
                                 ).show();
                     } else {
-                        //点击“拒绝并不再询问”
                         new AlertDialog.Builder(getActivity()).setMessage("该功能需要您开启摄像头权限，请去设置中统一摄像头权限")
                                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                //打开app的设置页面，引导用户开启权限
                                                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
-                                                intent.putExtra("uri", uri.toString());
-                                                startActivityForResult(intent, 1);
+                                                intent.setData(uri);
+                                                startActivity(intent);
                                             }
                                         }
                                 ).show();
                     }
-                    Toast.makeText(getContext(), "您拒绝了权限", Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
+            return;
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
-        }
+//        if (requestCode == 1) {
+//            requestPermissions(new String[]{Manifest.permission.CAMERA}, 0);
+//        }
     }
 
     @Subscribe(sticky = false)
