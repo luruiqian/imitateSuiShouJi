@@ -39,6 +39,7 @@ class PhotoViewer {
     //commit 2
     private OnPhotoViewerCreatedListener mCreatedInterface;
     //commit 3
+    //commit 4
     private OnPhotoViewerDestroyListener mDestroyInterface;
 
     private ArrayList<String> imgData; // 图片数据
