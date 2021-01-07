@@ -23,7 +23,7 @@ public class ImageScaleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     RecyclerView mRecyclerView;
     List<String> list = new ArrayList<>();
     List<String> picData = new ArrayList<>();
-
+//commit 2
 
     public ImageScaleAdapter(Context context, RecyclerView recyclerView) {
         this.mContext = context;
