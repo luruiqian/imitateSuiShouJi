@@ -36,7 +36,6 @@ class PhotoViewer {
 
     //commit 1
     private ShowImageViewInterface mInterface;
-    //commit 2
     private OnPhotoViewerCreatedListener mCreatedInterface;
     //commit 3
     //commit 4

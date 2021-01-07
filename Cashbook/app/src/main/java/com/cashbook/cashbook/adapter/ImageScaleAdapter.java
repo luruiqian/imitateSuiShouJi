@@ -26,6 +26,8 @@ public class ImageScaleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //commit 2
 // commit 3
 // commit 4
+
+
     public ImageScaleAdapter(Context context, RecyclerView recyclerView) {
         this.mContext = context;
         this.mRecyclerView = recyclerView;
