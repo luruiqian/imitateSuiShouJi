@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.cashbook.cashbook.R;
 import com.cashbook.cashbook.adapter.PhotoViewerFragment;
+import com.cashbook.cashbook.utils.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ class PhotoViewer {
     private final String INDICATOR_TYPE_DOT = "INDICATOR_TYPE_DOT";
     private final String INDICATOR_TYPE_TEXT = "INDICATOR_TYPE_TEXT";
 
+    //commit 1
     private ShowImageViewInterface mInterface;
     private OnPhotoViewerCreatedListener mCreatedInterface;
     private OnPhotoViewerDestroyListener mDestroyInterface;
